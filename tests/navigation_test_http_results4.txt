@@ -1,0 +1,46 @@
+﻿
+Running 32 tests using 4 workers
+
+  Γ£ô   1 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ analytics-dashboard.html ΓÇ║ analytics-dashboard.html loads and has no console errors (1.2s)
+  Γ£ô   3 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ about.html ΓÇ║ about.html loads and has no console errors (14.6s)
+  Γ£ô   5 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ blog.html ΓÇ║ blog.html loads and has no console errors (21.0s)
+  Γ£ô   4 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ ai-assistant.html ΓÇ║ ai-assistant.html loads and has no console errors (31.0s)
+  Γ£ô   2 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ attractions.html ΓÇ║ attractions.html loads and has no console errors (31.2s)
+  Γ£ô   6 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ booking.html ΓÇ║ booking.html loads and has no console errors (26.7s)
+  Γ£ô   8 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ contact.html ΓÇ║ contact.html loads and has no console errors (10.6s)
+  Γ£ô   7 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ careers.html ΓÇ║ careers.html loads and has no console errors (40.8s)
+  Γ£ô  10 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ cookie-policy.html ΓÇ║ cookie-policy.html loads and has no console errors (29.3s)
+  Γ£ô   9 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ conferences.html ΓÇ║ conferences.html loads and has no console errors (39.9s)
+  Γ£ô  13 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ events.html ΓÇ║ events.html loads and has no console errors (11.7s)
+  Γ£ô  11 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ deluxe-room.html ΓÇ║ deluxe-room.html loads and has no console errors (45.7s)
+  Γ£ô  15 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ facilities.html ΓÇ║ facilities.html loads and has no console errors (22.9s)
+  Γ£ô  12 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ dining-experience.html ΓÇ║ dining-experience.html loads and has no console errors (43.0s)
+  Γ£ô  14 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ executive-suite.html ΓÇ║ executive-suite.html loads and has no console errors (36.6s)
+  Γ£ô  18 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ gallery.html ΓÇ║ gallery.html loads and has no console errors (12.3s)
+  Γ£ô  20 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ index.html ΓÇ║ index.html loads and has no console errors (9.9s)
+  Γ£ô  17 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ faq.html ΓÇ║ faq.html loads and has no console errors (23.0s)
+  Γ£ô  21 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ offers.html ΓÇ║ offers.html loads and has no console errors (15.4s)
+  Γ£ô  16 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ family-room.html ΓÇ║ family-room.html loads and has no console errors (58.6s)
+  Γ£ô  23 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ restaurant.html ΓÇ║ restaurant.html loads and has no console errors (9.2s)
+  Γ£ô  22 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ privacy.html ΓÇ║ privacy.html loads and has no console errors (26.3s)
+  Γ£ô  19 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ hotel.html ΓÇ║ hotel.html loads and has no console errors (49.9s)
+  Γ£ô  25 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ rooms.html ΓÇ║ rooms.html loads and has no console errors (13.3s)
+  Γ£ô  24 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ reviews.html ΓÇ║ reviews.html loads and has no console errors (36.8s)
+  Γ£ô  26 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ spa-wellness.html ΓÇ║ spa-wellness.html loads and has no console errors (37.0s)
+  Γ£ô  27 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ standard-room.html ΓÇ║ standard-room.html loads and has no console errors (37.2s)
+  Γ£ô  29 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ terms.html ΓÇ║ terms.html loads and has no console errors (26.6s)
+  Γ£ô  30 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ transportation.html ΓÇ║ transportation.html loads and has no console errors (29.4s)
+  Γ£ô  31 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ virtual-tour.html ΓÇ║ virtual-tour.html loads and has no console errors (30.0s)
+  Γ£ÿ  28 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ sustainability.html ΓÇ║ sustainability.html loads and has no console errors (1.1m)
+  Γ£ô  32 [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ weddings.html ΓÇ║ weddings.html loads and has no console errors (23.7s)
+
+
+  1) [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ sustainability.html ΓÇ║ sustainability.html loads and has no console errors 
+
+    Test timeout of 60000ms exceeded.
+
+    Error Context: test-results\navigation-sustainability--844e9-s-and-has-no-console-errors-chromium\error-context.md
+
+  1 failed
+    [chromium] ΓÇ║ tests\navigation.test.js:17:5 ΓÇ║ sustainability.html ΓÇ║ sustainability.html loads and has no console errors 
+  31 passed (3.9m)

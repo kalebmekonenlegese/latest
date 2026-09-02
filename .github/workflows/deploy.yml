@@ -1,0 +1,263 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: production
+        type: choice
+        options:
+          - staging
+          - production
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'assets/**'
+      - 'server.js'
+      - 'vite.config.mjs'
+      - 'package.json'
+      - 'controllers/**'
+      - 'services/**'
+      - 'routes/**'
+      - 'middlewares/**'
+      - 'utils/**'
+      - 'config/**'
+      - 'prisma/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      build-success: ${{ steps.build.outcome }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Run backend tests
+        run: npm run test:backend
+
+      - name: Run focused page regression tests
+        run: npx playwright test tests/focused.test.js --workers=1
+
+      - name: Build site
+        id: build
+        run: npm run build
+
+      - name: Verify build
+        run: npm run build:verify
+
+      - name: Optimize build
+        run: npm run optimize
+
+      - name: Run security audit
+        run: npm run security:audit
+
+      - name: Run SEO gate
+        run: npm run seo:check
+
+      - name: Run Lighthouse gate
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5000 &
+          for i in {1..30}; do
+            curl -sf http://127.0.0.1:5000/index.html > /dev/null && break
+            sleep 1
+          done
+          mkdir -p ./lighthouse-reports
+          for page in index booking rooms contact hotel; do
+            npx lighthouse "http://127.0.0.1:5000/${page}.html" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --preset=desktop \
+              --output=json \
+              --output-path="./lighthouse-reports/lighthouse-${page}.json" \
+              --quiet
+          done
+          node scripts/lighthouse-gate.js ./lighthouse-reports
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-dist
+          path: dist
+          retention-days: 30
+
+      - name: Upload backend release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-release
+          path: |
+            server.js
+            package.json
+            package-lock.json
+            controllers/**
+            config/**
+            middlewares/**
+            prisma/**
+            routes/**
+            services/**
+            utils/**
+            assets/**
+          retention-days: 30
+
+  deploy-pages:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: >-
+      (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: dist
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: 'dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-production-server:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production'
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: release/dist
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: server-release
+          path: release
+
+      - name: Install SSH utility
+        run: sudo apt-get update && sudo apt-get install -y openssh-client rsync
+
+      - name: Prepare remote release directory
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_SSH_PORT || '22' }}
+          script: |
+            set -e
+            DEPLOY_PATH='${{ secrets.PRODUCTION_DEPLOY_PATH }}'
+            BACKUP_PATH='${{ secrets.PRODUCTION_BACKUP_PATH }}'
+            if [ -z "$BACKUP_PATH" ]; then BACKUP_PATH="$DEPLOY_PATH/backups"; fi
+            mkdir -p "$DEPLOY_PATH/releases/${{ github.run_id }}"
+            mkdir -p "$BACKUP_PATH"
+
+      - name: Upload release files to production
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_SSH_PORT || '22' }}
+          source: 'release/*'
+          target: '${{ secrets.PRODUCTION_DEPLOY_PATH }}/releases/${{ github.run_id }}'
+
+      - name: Deploy release on production server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_SSH_PORT || '22' }}
+          script: |
+            set -e
+            DEPLOY_PATH='${{ secrets.PRODUCTION_DEPLOY_PATH }}'
+            RELEASE_DIR="$DEPLOY_PATH/releases/${{ github.run_id }}"
+            BACKUP_PATH='${{ secrets.PRODUCTION_BACKUP_PATH }}'
+            if [ -z "$BACKUP_PATH" ]; then BACKUP_PATH="$DEPLOY_PATH/backups"; fi
+            mkdir -p "$BACKUP_PATH"
+            if [ -n "${{ secrets.DATABASE_URL }}" ]; then
+              pg_dump --dbname "${{ secrets.DATABASE_URL }}" > "$BACKUP_PATH/db-backup-$(date +%Y%m%d%H%M%S).sql"
+            fi
+            cd "$RELEASE_DIR"
+            npm ci --production
+            ln -sfn "$RELEASE_DIR" "$DEPLOY_PATH/current"
+            if [ -n '${{ secrets.PRODUCTION_SERVICE_NAME }}' ]; then
+              sudo systemctl restart '${{ secrets.PRODUCTION_SERVICE_NAME }}'
+            fi
+            echo "Deployment completed at $(date)" >> "$DEPLOY_PATH/deploy.log"
+
+  staging-preview:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: >-
+      (github.ref == 'refs/heads/develop' && github.event_name == 'push') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: dist
+
+      - name: Archive staging preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-preview-dist
+          path: dist
+          retention-days: 7
+
+  notify-deployment:
+    needs: [build-and-test, deploy-pages]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Check deployment status
+        run: |
+          if [ "${{ needs.deploy-pages.result }}" == "success" ]; then
+            echo "✅ Deployment successful"
+          else
+            echo "⚠️  Deployment completed with status: ${{ needs.deploy-pages.result }}"
+          fi

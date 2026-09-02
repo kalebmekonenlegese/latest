@@ -1,0 +1,48 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches:
+      - main
+      - agents/lighthouse-performance-evidence-gap
+      - fix/deps/sentry-major
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Start static server
+        run: |
+          npm install -g serve
+          serve -s dist -l 5000 &
+          npx wait-on http://localhost:5000
+
+      - name: Run Lighthouse CI
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.ref_name }}
+        run: npx -y @lhci/cli autorun
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lhci-reports
+          path: .lighthouseci/

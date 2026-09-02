@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Internal analytics dashboard for Hatsey Kaleb Hotel website performance and event tracking.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://hatseykalebhotel.com/analytics-dashboard.html" />
+  <title>Analytics Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.6; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+    code { background: #f3f3f3; padding: 0.2rem 0.4rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="logo" aria-label="Hatsey Kaleb Hotel home">
+        <img loading="lazy" decoding="async" width="56" height="56" src="/images/logo.svg" alt="Hatsey Kaleb Hotel logo" />
+        <span class="logo-title">Hatsey Kaleb Hotel</span>
+      </div>
+      <nav id="primary-navigation" class="nav" aria-label="Primary navigation">
+        <a href="index.html">home</a>
+        <a href="rooms.html">rooms</a>
+        <a href="restaurant.html">dining</a>
+        <a href="events.html">events</a>
+        <a href="gallery.html">gallery</a>
+        <a href="about.html">about us</a>
+        <a href="contact.html">contact us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" id="main-content">
+    <h1>Analytics Dashboard</h1>
+    <p>This page summarizes the local analytics events collected in the browser for the hotel website.</p>
+    <div class="card" id="summary"></div>
+    <div class="card">
+      <h2>Event counts</h2>
+      <pre id="events"></pre>
+    </div>
+    <div class="card">
+      <h2>Funnel stages</h2>
+      <pre id="funnel"></pre>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><text x="50%" y="70%" text-anchor="middle" font-size="62" font-family="Arial" font-weight="700" fill="#111">H</text></svg>
+          <div>
+            <strong>Hatsey Kaleb Hotel</strong>
+            <p>Warm hospitality in Tigray — comfort, events, and dining.</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="rooms.html">Rooms</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function readMetrics() {
+      try {
+        return JSON.parse(localStorage.getItem('hatseyAnalyticsMetrics') || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    const metrics = readMetrics();
+    document.getElementById('summary').innerHTML = `<strong>Tracked events:</strong> ${Object.keys(metrics.events || {}).length}<br><strong>Scroll depth buckets:</strong> ${(metrics.scrollDepth || []).join(', ') || 'none'}`;
+    document.getElementById('events').textContent = JSON.stringify(metrics.events || {}, null, 2);
+    document.getElementById('funnel').textContent = JSON.stringify(metrics.funnel || {}, null, 2);
+  </script>
+</body>
+</html>
+
+

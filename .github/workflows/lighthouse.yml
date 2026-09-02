@@ -1,0 +1,50 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches:
+      - "**"
+
+  pull_request:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Start local server
+        run: |
+          npx serve -s dist -l 8080 > server.log 2>&1 &
+          sleep 5
+
+      - name: Check website
+        run: |
+          curl -I http://localhost:8080/
+          curl -I http://localhost:8080/booking.html
+          curl -I http://localhost:8080/rooms.html
+          curl -I http://localhost:8080/contact.html
+          curl -I http://localhost:8080/hotel.html
+
+      - name: Run Lighthouse CI
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.ref_name }}
+        run: npx -y @lhci/cli autorun
+
+      - name: Show server log if failed
+        if: failure()
+        run: cat server.log

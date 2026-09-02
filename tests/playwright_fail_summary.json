@@ -1,0 +1,44 @@
+{
+  "totalFailures": 62,
+  "byFile": {
+    "booking.test.js": {
+      "count": 1,
+      "examples": [
+        "booking flow basic validations (8.5s)"
+      ]
+    },
+    "console.test.js": {
+      "count": 31,
+      "examples": [
+        "ai-assistant.html should not emit JavaScript errors (4.2s)",
+        "about.html should not emit JavaScript errors (4.2s)",
+        "attractions.html should not emit JavaScript errors (4.2s)",
+        "booking.html should not emit JavaScript errors (3.7s)",
+        "blog.html should not emit JavaScript errors (4.7s)"
+      ]
+    },
+    "contact.test.js": {
+      "count": 1,
+      "examples": [
+        "contact form validation and submit (11.9s)"
+      ]
+    },
+    "focused.test.js": {
+      "count": 2,
+      "examples": [
+        "QA Focused Tests",
+        "QA Focused Tests"
+      ]
+    },
+    "navigation.test.js": {
+      "count": 27,
+      "examples": [
+        "analytics-dashboard.html",
+        "about.html",
+        "blog.html",
+        "ai-assistant.html",
+        "booking.html"
+      ]
+    }
+  }
+}

@@ -1,0 +1,573 @@
+﻿
+Running 32 tests using 4 workers
+
+  Γ£ô   1 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - analytics-dashboard.html (742ms)
+  Γ£ÿ   5 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - blog.html (3.3s)
+  Γ£ÿ   4 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - ai-assistant.html (3.5s)
+  Γ£ÿ   2 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - attractions.html (5.0s)
+  Γ£ÿ   6 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - booking.html (4.8s)
+  Γ£ÿ   7 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - conferences.html (5.1s)
+  Γ£ÿ   8 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - careers.html (4.4s)
+  Γ£ÿ  10 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - cookie-policy.html (4.6s)
+  Γ£ÿ  11 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - deluxe-room.html (6.0s)
+  Γ£ÿ   9 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - contact.html (6.9s)
+  Γ£ÿ  14 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - executive-suite.html (6.2s)
+  Γ£ÿ  12 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - dining-experience.html (10.6s)
+  Γ£ÿ  13 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - events.html (10.0s)
+  Γ£ÿ  16 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - faq.html (5.6s)
+  Γ£ÿ  15 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - facilities.html (6.3s)
+  Γ£ÿ  17 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - family-room.html (6.9s)
+  Γ£ô  19 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - hotel.html (10.2s)
+  Γ£ÿ   3 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - about.html (1.0m)
+  Γ£ÿ  18 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - gallery.html (12.0s)
+  Γ£ô  20 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - index.html (12.4s)
+  Γ£ÿ  21 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - offers.html (4.7s)
+  Γ£ÿ  22 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - reviews.html (4.7s)
+  Γ£ÿ  23 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - privacy.html (4.2s)
+  Γ£ÿ  24 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - restaurant.html (6.0s)
+  Γ£ÿ  25 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - rooms.html (8.4s)
+  Γ£ÿ  27 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - standard-room.html (6.9s)
+  Γ£ÿ  28 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - sustainability.html (8.9s)
+  Γ£ÿ  29 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - transportation.html (5.2s)
+  Γ£ÿ  30 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - terms.html (6.6s)
+  Γ£ÿ  31 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - virtual-tour.html (6.1s)
+  Γ£ô  32 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - weddings.html (5.8s)
+  Γ£ÿ  26 [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - spa-wellness.html (30.3s)
+
+
+  1) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - about.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Test timeout of 60000ms exceeded.
+
+    Error: page.goto: Test timeout of 60000ms exceeded.
+    Call log:
+      - navigating to "file:///C%3A/Users/Administrator/Documents/hatsey%20kaleb%20hotel%20website/about.html", waiting until "load"
+
+
+       7 | for (const p of pages) {
+       8 |   test(`axe accessibility audit - ${p}`, async ({ page }) => {
+    >  9 |     await page.goto(fileUrlFor(p));
+         |                ^
+      10 |     await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+      11 |     // eslint-disable-next-line no-undef
+      12 |     const results = await page.evaluate(async () => {
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:9:16
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---about-html-chromium\error-context.md
+
+  2) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - ai-assistant.html ΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---ai-assistant-html-chromium\error-context.md
+
+  3) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - attractions.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---attractions-html-chromium\error-context.md
+
+  4) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - blog.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---blog-html-chromium\error-context.md
+
+  5) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - booking.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---booking-html-chromium\error-context.md
+
+  6) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - careers.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---careers-html-chromium\error-context.md
+
+  7) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - conferences.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---conferences-html-chromium\error-context.md
+
+  8) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - contact.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---contact-html-chromium\error-context.md
+
+  9) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - cookie-policy.html ΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---cookie-policy-html-chromium\error-context.md
+
+  10) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - deluxe-room.html ΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---deluxe-room-html-chromium\error-context.md
+
+  11) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - dining-experience.html 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessib-dea2a-it---dining-experience-html-chromium\error-context.md
+
+  12) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - events.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---events-html-chromium\error-context.md
+
+  13) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - executive-suite.html 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---executive-suite-html-chromium\error-context.md
+
+  14) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - facilities.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---facilities-html-chromium\error-context.md
+
+  15) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - family-room.html ΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---family-room-html-chromium\error-context.md
+
+  16) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - faq.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---faq-html-chromium\error-context.md
+
+  17) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - gallery.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---gallery-html-chromium\error-context.md
+
+  18) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - offers.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---offers-html-chromium\error-context.md
+
+  19) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - privacy.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---privacy-html-chromium\error-context.md
+
+  20) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - restaurant.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---restaurant-html-chromium\error-context.md
+
+  21) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - reviews.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---reviews-html-chromium\error-context.md
+
+  22) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - rooms.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---rooms-html-chromium\error-context.md
+
+  23) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - spa-wellness.html ΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---spa-wellness-html-chromium\error-context.md
+
+  24) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - standard-room.html ΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---standard-room-html-chromium\error-context.md
+
+  25) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - sustainability.html ΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---sustainability-html-chromium\error-context.md
+
+  26) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - terms.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---terms-html-chromium\error-context.md
+
+  27) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - transportation.html ΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---transportation-html-chromium\error-context.md
+
+  28) [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - virtual-tour.html ΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1
+
+      19 |       fs.writeFileSync(`tests/accessibility-${p}.json`, JSON.stringify(results, null, 2));
+      20 |     }
+    > 21 |     expect(violations.length).toBe(0);
+         |                               ^
+      22 |   });
+      23 | }
+      24 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\accessibility.test.js:21:31
+
+    Error Context: test-results\accessibility-axe-accessibility-audit---virtual-tour-html-chromium\error-context.md
+
+  28 failed
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - about.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - ai-assistant.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - attractions.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - blog.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - booking.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - careers.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - conferences.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - contact.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - cookie-policy.html ΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - deluxe-room.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - dining-experience.html 
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - events.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - executive-suite.html ΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - facilities.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - family-room.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - faq.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - gallery.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - offers.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - privacy.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - restaurant.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - reviews.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - rooms.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - spa-wellness.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - standard-room.html ΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - sustainability.html ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - terms.html ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - transportation.html ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\accessibility.test.js:8:3 ΓÇ║ axe accessibility audit - virtual-tour.html ΓöÇΓöÇΓöÇΓöÇΓöÇ
+  4 passed (1.8m)

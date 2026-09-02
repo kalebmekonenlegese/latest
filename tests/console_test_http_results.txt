@@ -1,0 +1,844 @@
+﻿
+Running 32 tests using 4 workers
+
+  Γ£ÿ   3 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ analytics-dashboard.html should not emit JavaScript errors (1.8s)
+  Γ£ÿ   1 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ about.html should not emit JavaScript errors (4.7s)
+  Γ£ÿ   4 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ ai-assistant.html should not emit JavaScript errors (5.7s)
+  Γ£ÿ   2 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ attractions.html should not emit JavaScript errors (10.0s)
+  Γ£ÿ   6 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ booking.html should not emit JavaScript errors (5.2s)
+  Γ£ÿ   7 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ careers.html should not emit JavaScript errors (4.7s)
+  Γ£ÿ   8 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ conferences.html should not emit JavaScript errors (5.6s)
+  Γ£ÿ   9 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ contact.html should not emit JavaScript errors (4.7s)
+  Γ£ÿ   5 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ blog.html should not emit JavaScript errors (16.8s)
+  Γ£ÿ  10 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ cookie-policy.html should not emit JavaScript errors (3.8s)
+  Γ£ÿ  11 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ deluxe-room.html should not emit JavaScript errors (4.1s)
+  Γ£ÿ  12 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ dining-experience.html should not emit JavaScript errors (4.2s)
+  Γ£ÿ  13 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ events.html should not emit JavaScript errors (4.7s)
+  Γ£ÿ  14 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ executive-suite.html should not emit JavaScript errors (5.1s)
+  Γ£ÿ  15 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ facilities.html should not emit JavaScript errors (4.6s)
+  Γ£ÿ  16 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ faq.html should not emit JavaScript errors (3.7s)
+  Γ£ÿ  17 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ family-room.html should not emit JavaScript errors (4.4s)
+  Γ£ÿ  18 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ gallery.html should not emit JavaScript errors (5.4s)
+  Γ£ÿ  20 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ index.html should not emit JavaScript errors (6.8s)
+  Γ£ÿ  19 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ hotel.html should not emit JavaScript errors (6.4s)
+  Γ£ÿ  21 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ offers.html should not emit JavaScript errors (4.0s)
+  Γ£ÿ  22 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ privacy.html should not emit JavaScript errors (2.3s)
+  Γ£ÿ  24 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ reviews.html should not emit JavaScript errors (4.0s)
+  Γ£ÿ  23 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ restaurant.html should not emit JavaScript errors (4.9s)
+  Γ£ÿ  25 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ rooms.html should not emit JavaScript errors (5.2s)
+  Γ£ÿ  27 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ spa-wellness.html should not emit JavaScript errors (4.7s)
+  Γ£ÿ  28 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ standard-room.html should not emit JavaScript errors (5.0s)
+  Γ£ÿ  26 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ sustainability.html should not emit JavaScript errors (6.2s)
+  Γ£ÿ  29 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ terms.html should not emit JavaScript errors (2.9s)
+  Γ£ÿ  30 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ transportation.html should not emit JavaScript errors (4.1s)
+  Γ£ÿ  31 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ virtual-tour.html should not emit JavaScript errors (4.6s)
+  Γ£ÿ  32 [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ weddings.html should not emit JavaScript errors (4.5s)
+
+
+  1) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ about.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-about-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  2) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ ai-assistant.html should not emit JavaScript errors ΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-ai-assistant-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  3) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ analytics-dashboard.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-analytics-dashboar-8c51a--not-emit-JavaScript-errors-chromium\error-context.md
+
+  4) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ attractions.html should not emit JavaScript errors ΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-attractions-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  5) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ blog.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-blog-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  6) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ booking.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-booking-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  7) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ careers.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-careers-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  8) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ conferences.html should not emit JavaScript errors ΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-conferences-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  9) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ contact.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-contact-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  10) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ cookie-policy.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-cookie-policy-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  11) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ deluxe-room.html should not emit JavaScript errors ΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-deluxe-room-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  12) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ dining-experience.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-dining-experience--c9983--not-emit-JavaScript-errors-chromium\error-context.md
+
+  13) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ events.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-events-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  14) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ executive-suite.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-executive-suite-ht-dcdee--not-emit-JavaScript-errors-chromium\error-context.md
+
+  15) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ facilities.html should not emit JavaScript errors ΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-facilities-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  16) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ family-room.html should not emit JavaScript errors ΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-family-room-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  17) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ faq.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-faq-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  18) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ gallery.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-gallery-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  19) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ hotel.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-hotel-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  20) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ index.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-index-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  21) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ offers.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-offers-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  22) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ privacy.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-privacy-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  23) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ restaurant.html should not emit JavaScript errors ΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-restaurant-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  24) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ reviews.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-reviews-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  25) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ rooms.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-rooms-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  26) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ spa-wellness.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-spa-wellness-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  27) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ standard-room.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-standard-room-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  28) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ sustainability.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-sustainability-htm-28e70--not-emit-JavaScript-errors-chromium\error-context.md
+
+  29) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ terms.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-terms-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  30) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ transportation.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-transportation-htm-b5f87--not-emit-JavaScript-errors-chromium\error-context.md
+
+  31) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ virtual-tour.html should not emit JavaScript errors 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-virtual-tour-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  32) [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ weddings.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇ
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 4
+
+    - Array []
+    + Array [
+    +   "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    +   "X-Frame-Options may only be set via an HTTP header sent along with a document. It may not be set inside <meta>.",
+    + ]
+
+      39 |     await page.waitForLoadState('networkidle');
+      40 |
+    > 41 |     expect(jsErrors).toEqual([], 'Page should not emit JavaScript errors. Note: External CDN failures are excluded.');
+         |                      ^
+      42 |   });
+      43 | }
+      44 |
+        at C:\Users\Administrator\Documents\hatsey kaleb hotel website\tests\console.test.js:41:22
+
+    Error Context: test-results\console-weddings-html-should-not-emit-JavaScript-errors-chromium\error-context.md
+
+  32 failed
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ about.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ ai-assistant.html should not emit JavaScript errors ΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ analytics-dashboard.html should not emit JavaScript errors 
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ attractions.html should not emit JavaScript errors ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ blog.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ booking.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ careers.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ conferences.html should not emit JavaScript errors ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ contact.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ cookie-policy.html should not emit JavaScript errors ΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ deluxe-room.html should not emit JavaScript errors ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ dining-experience.html should not emit JavaScript errors 
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ events.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ executive-suite.html should not emit JavaScript errors 
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ facilities.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ family-room.html should not emit JavaScript errors ΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ faq.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ gallery.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ hotel.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ index.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ offers.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ privacy.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ restaurant.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ reviews.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ rooms.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ spa-wellness.html should not emit JavaScript errors ΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ standard-room.html should not emit JavaScript errors ΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ sustainability.html should not emit JavaScript errors 
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ terms.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ transportation.html should not emit JavaScript errors 
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ virtual-tour.html should not emit JavaScript errors ΓöÇΓöÇ
+    [chromium] ΓÇ║ tests\console.test.js:21:3 ΓÇ║ weddings.html should not emit JavaScript errors ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ

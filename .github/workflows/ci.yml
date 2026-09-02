@@ -1,0 +1,310 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  lint-and-format:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+  build-and-verify:
+    name: Build & Verify
+    runs-on: ubuntu-latest
+    needs: lint-and-format
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Verify build output
+        run: npm run build:verify
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-dist
+          path: dist
+          retention-days: 5
+
+  backend-tests:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run backend test suite
+        run: npm run test:backend
+
+  playwright-regression:
+    name: Playwright Regression
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run focused browser regression suite
+        run: npx playwright test tests/focused.test.js --workers=1
+
+      - name: Upload browser report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  accessibility-gate:
+    name: Accessibility Gate
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run accessibility checks
+        run: npx playwright test tests/accessibility-comprehensive.test.js tests/accessibility-full-audit.test.js --workers=1
+
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security hardening gate
+        run: npm run security:audit
+
+  seo-gate:
+    name: SEO Gate
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate SEO metadata and index files
+        run: npm run seo:check
+
+  lighthouse-gate:
+    name: Lighthouse Performance Gate
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start Vite preview
+        run: |
+          npm run build
+          npm run preview -- --host 127.0.0.1 --port 5000 &
+          for i in {1..30}; do
+            curl -sf http://127.0.0.1:5000/index.html > /dev/null && break
+            sleep 1
+          done
+
+      - name: Run Lighthouse and enforce score thresholds
+        run: |
+          mkdir -p ./lighthouse-reports
+          for page in index booking rooms contact hotel; do
+            npx lighthouse "http://127.0.0.1:5000/${page}.html" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --preset=desktop \
+              --output=json \
+              --output-path="./lighthouse-reports/lighthouse-${page}.json" \
+              --quiet
+          done
+          node scripts/lighthouse-gate.js ./lighthouse-reports
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: lighthouse-reports/
+          retention-days: 30
+
+  runtime-asset-validation:
+    name: Runtime / Asset Validation
+    runs-on: ubuntu-latest
+    needs: build-and-verify
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Verify production build structure
+        run: npm run build:verify
+
+      - name: Validate preview response
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 5000 > /tmp/hotel-preview.log 2>&1 &
+          for i in {1..30}; do
+            if curl -sf http://127.0.0.1:5000/index.html > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Preview server failed to respond on port 5000"
+          exit 1
+
+  production-gate:
+    name: Production Gate
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, build-and-verify, backend-tests, playwright-regression, accessibility-gate, security-audit, seo-gate, lighthouse-gate, runtime-asset-validation]
+    if: always()
+
+    steps:
+      - name: Enforce deployment gate
+        run: |
+          if [ "${{ needs.lint-and-format.result }}" != "success" ] || \
+             [ "${{ needs.build-and-verify.result }}" != "success" ] || \
+             [ "${{ needs.backend-tests.result }}" != "success" ] || \
+             [ "${{ needs.playwright-regression.result }}" != "success" ] || \
+             [ "${{ needs.accessibility-gate.result }}" != "success" ] || \
+             [ "${{ needs.security-audit.result }}" != "success" ] || \
+             [ "${{ needs.seo-gate.result }}" != "success" ] || \
+             [ "${{ needs.lighthouse-gate.result }}" != "success" ] || \
+             [ "${{ needs.runtime-asset-validation.result }}" != "success" ]; then
+            echo "❌ Production gate failed: one or more required checks did not pass."
+            exit 1
+          fi
+          echo "✅ Production gate passed: all required quality gates are green."
+
+  all-checks:
+    name: All Checks Complete
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, build-and-verify, backend-tests, playwright-regression, accessibility-gate, security-audit, seo-gate, lighthouse-gate, runtime-asset-validation, production-gate]
+
+    if: always()
+
+    steps:
+      - name: Check job status
+        run: |
+          if [ "${{ needs.lint-and-format.result }}" == "failure" ] || \
+             [ "${{ needs.build-and-verify.result }}" == "failure" ] || \
+             [ "${{ needs.backend-tests.result }}" == "failure" ] || \
+             [ "${{ needs.playwright-regression.result }}" == "failure" ] || \
+             [ "${{ needs.accessibility-gate.result }}" == "failure" ] || \
+             [ "${{ needs.security-audit.result }}" == "failure" ] || \
+             [ "${{ needs.seo-gate.result }}" == "failure" ] || \
+             [ "${{ needs.lighthouse-gate.result }}" == "failure" ] || \
+             [ "${{ needs.runtime-asset-validation.result }}" == "failure" ] || \
+             [ "${{ needs.production-gate.result }}" == "failure" ]; then
+            echo "❌ One or more checks failed"
+            exit 1
+          fi
+          echo "✅ All checks passed"
+

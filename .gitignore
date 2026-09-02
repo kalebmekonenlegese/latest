@@ -1,0 +1,76 @@
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Build Output
+/dist
+/build
+.next/
+
+# Development
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+/coverage
+tests/playwright-report/
+test-results/
+.nyc_output/
+junit.xml
+
+# Logs
+logs/
+*.log
+lerna-debug.log*
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.pem
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Backup files
+*.bak
+*.backup
+*~
+.#*
+
+# CDK asset staging directory
+.cdk.staging/
+cdk.out/
+
+# Vite
+.vite/
+
+# Analytics
+analytics/
+reports/
+/lighthouse-reports/
+/playwright-report/
+*.zip
+
+broken-lordicon-lines.txt
