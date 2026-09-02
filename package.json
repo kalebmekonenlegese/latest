@@ -4,7 +4,7 @@
   "description": "Luxury hotel website for Hatsey Kaleb Hotel",
   "private": true,
   "engines": {
-    "node": ">=22.19.0"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "vite",
