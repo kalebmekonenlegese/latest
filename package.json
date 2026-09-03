@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Luxury hotel website for Hatsey Kaleb Hotel",
   "private": true,
-  "engines": {
-    "node": "22.x"
-  },
+ "engines": {
+  "node": "22.x"
+},
   "scripts": {
     "dev": "vite",
     "start": "npm run dev",
