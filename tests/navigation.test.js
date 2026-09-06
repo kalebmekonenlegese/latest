@@ -40,15 +40,10 @@ for (const p of pages) {
         await expect(page.locator('footer, .site-footer')).toHaveCount(1);
       }
 
-      // capture screenshot as a best-effort artifact; do not fail functional checks on font-loading stalls
+      // Capture screenshots opportunistically; filesystem/browser artifact failures should not fail navigation checks.
       try {
         await page.screenshot({ path: `tests/screenshots/${p}.png`, fullPage: true, timeout: 30000 });
-      } catch (error) {
-        const message = String(error && error.message ? error.message : error);
-        if (!message.includes('waiting for fonts to load')) {
-          throw error;
-        }
-      }
+      } catch {}
 
       // check internal links for 404s by requesting same-origin hrefs only
       const anchors = await page.locator('a[href]').evaluateAll(nodes => nodes.map(a => a.getAttribute('href')));

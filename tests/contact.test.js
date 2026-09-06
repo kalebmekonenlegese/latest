@@ -4,7 +4,7 @@ const { fileUrlFor } = require('./utils');
 test('contact form validation and submit', async ({ page }) => {
   const target = fileUrlFor('contact.html');
   await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 60000 });
-  const form = page.locator('form#contact-form, form[action*="contact"], form');
+  const form = page.locator('#contact-form');
   await expect(form).toBeVisible();
 
   const email = form.locator('input[type=email], input[name*=email]');

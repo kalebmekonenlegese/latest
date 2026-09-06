@@ -1,4 +1,4 @@
-const { chromium } = require('@playwright/test');
+const { chromium, expect } = require('@playwright/test');
 const { fileUrlFor } = require('./utils');
 
 const EXTERNAL_DOMAINS = ['cdn.lordicon.com', 'images.unsplash.com', 'fonts.googleapis.com', 'cdn.jsdelivr.net'];

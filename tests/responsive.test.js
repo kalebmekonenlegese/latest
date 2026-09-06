@@ -25,12 +25,7 @@ for (const p of pages) {
       expect(hasHorizontalOverflow).toBeFalsy();
       try {
         await page.screenshot({ path: `tests/screenshots/${p}-${vp.name}.png`, fullPage: true, timeout: 30000 });
-      } catch (error) {
-        const message = String(error && error.message ? error.message : error);
-        if (!message.includes('waiting for fonts to load')) {
-          throw error;
-        }
-      }
+      } catch {}
     });
   }
 }
