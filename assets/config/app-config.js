@@ -7,6 +7,11 @@ const configuredApiUrl =
     ? import.meta.env.VITE_API_URL
     : '';
 
+const configuredStripePublicKey =
+  typeof import.meta !== 'undefined' && import.meta.env
+    ? import.meta.env.VITE_STRIPE_PUBLIC_KEY
+    : '';
+
 const hostname =
   typeof window !== 'undefined' && window.location
     ? window.location.hostname
@@ -17,7 +22,12 @@ const isLocal =
   hostname === '127.0.0.1' ||
   hostname === '0.0.0.0';
 
-const apiUrl = configuredApiUrl || (isLocal ? `http://${hostname}:3000` : defaultApiUrl);
+const localApiUrl = `http://${hostname}:3000`;
+const normalizedConfiguredApiUrl =
+  isLocal && configuredApiUrl
+    ? configuredApiUrl.replace(/^http:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0)(?::3000)?(?=\/|$)/, localApiUrl)
+    : configuredApiUrl;
+const apiUrl = normalizedConfiguredApiUrl || (isLocal ? localApiUrl : defaultApiUrl);
 
 // Optional runtime overrides.
 const runtimeOverrides =
@@ -37,6 +47,11 @@ const runtimeEnv = {
   MODE: isLocal ? 'development' : 'production',
 
   VITE_API_URL: getRuntimeValue('VITE_API_URL', apiUrl),
+
+  VITE_STRIPE_PUBLIC_KEY: getRuntimeValue(
+    'VITE_STRIPE_PUBLIC_KEY',
+    configuredStripePublicKey || ''
+  ),
 
   VITE_GA_MEASUREMENT_ID:
     getRuntimeValue('VITE_GA_MEASUREMENT_ID', ''),
@@ -152,7 +167,7 @@ window.HotelAppConfig = {
   // Payment
   payment: {
     provider: 'stripe',
-    stripePublicKey: getRuntimeValue('VITE_STRIPE_PUBLIC_KEY', ''),
+    stripePublicKey: runtimeEnv.VITE_STRIPE_PUBLIC_KEY,
     currency: 'usd',
     taxRate: 0.15,
     processingFee: 0.029

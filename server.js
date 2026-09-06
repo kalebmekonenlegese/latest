@@ -1,6 +1,5 @@
 ﻿const dotenv = require('dotenv');
 dotenv.config();
-
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -22,6 +21,7 @@ try {
 
 const routes = require('./routes');
 const healthRoutes = require('./routes/healthRoutes');
+const { webhook: paymentWebhook } = require('./controllers/paymentController');
 const { apiLimiter } = require('./middlewares/rateLimit');
 const sanitizeRequest = require('./middlewares/sanitize');
 const logger = require('./utils/logger');
@@ -119,6 +119,25 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  let responseLogged = false;
+  const logResponse = () => {
+    if (responseLogged) return;
+    responseLogged = true;
+    logger.info('HTTP response: %s %s %s requestId=%s', req.method, req.originalUrl, res.statusCode, req.id);
+  };
+
+  ['json', 'send', 'end', 'redirect'].forEach((method) => {
+    const originalMethod = res[method];
+    res[method] = function responseLogger(...args) {
+      logResponse();
+      return originalMethod.apply(this, args);
+    };
+  });
+
+  next();
+});
+
 morgan.token('id', (req) => req.id || '-');
 
 app.use(
@@ -134,6 +153,7 @@ app.use(
   )
 );
 
+app.post('/api/payments/webhook', express.raw({ type: 'application/json', limit: '1mb' }), paymentWebhook);
 app.use(express.json({ limit: '15kb' }));
 app.use(express.urlencoded({ extended: true, limit: '15kb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET || 'cookie-secret-key'));

@@ -15,6 +15,7 @@
     "optimize": "node build-scripts/optimize.js",
     "test": "playwright test",
     "test:backend": "jest --runInBand",
+    "email:test": "node scripts/test-email.js",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",

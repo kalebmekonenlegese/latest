@@ -20,7 +20,29 @@ Notifications currently connected:
 
 - New booking request to the guest and hotel notification address
 - Contact form notification to the hotel notification address
-- Successful payment confirmation to the guest
+- Successful payment confirmation to the guest and hotel notification address
+- Booking cancellation to the guest and hotel notification address, including refund status
+
+The shared service exposes `sendBookingConfirmation`, `sendHotelNotification`,
+`sendPaymentConfirmation`, and `sendCancellationEmail`. Delivery remains non-blocking:
+booking and payment workflows continue when SMTP is unavailable, with `emailSent: false`.
+
+## Local SMTP smoke test
+
+Mailtrap is suitable for local verification. Add its SMTP credentials and a test recipient:
+
+```env
+EMAIL_TEST_RECIPIENT=your-mailtrap-inbox@example.com
+```
+
+Then run:
+
+```bash
+npm run email:test
+```
+
+The command exits successfully only when Nodemailer reports a sent message. Confirm the
+message appears in the Mailtrap inbox before marking email delivery complete.
 
 ## Stripe payment configuration
 

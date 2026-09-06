@@ -14,11 +14,18 @@ const transporter = isConfigured
       host: smtpHost,
       port: smtpPort,
       secure: process.env.SMTP_SECURE === 'true',
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
       auth: smtpUser && smtpPass ? { user: smtpUser, pass: smtpPass } : undefined
     })
   : null;
 
-const formatDate = (value) => new Date(value).toISOString().slice(0, 10);
+const formatDate = (value) => {
+  if (!value) return 'Not provided';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 'Not provided' : date.toISOString().slice(0, 10);
+};
 
 const sendEmail = async ({ to, subject, text, html }) => {
   if (!transporter) {
@@ -30,7 +37,7 @@ const sendEmail = async ({ to, subject, text, html }) => {
     const result = await transporter.sendMail({ from: emailFrom, to, subject, text, html });
     return { sent: true, messageId: result.messageId };
   } catch (error) {
-    logger.error('Email delivery failed: %s', error.message);
+    logger.error('Email delivery failed: %o', error);
     return { sent: false, reason: 'delivery_failed' };
   }
 };
@@ -52,12 +59,25 @@ const sendBookingConfirmation = async (booking) => {
   ].join('\n');
 
   const customer = await sendEmail({ to: booking.email, subject, text });
-  const hotel = await sendEmail({
+  return { sent: customer.sent, customerSent: customer.sent };
+};
+
+const sendHotelNotification = async (booking, { status = booking.status, event = 'new reservation' } = {}) => {
+  return sendEmail({
     to: hotelEmail,
-    subject: `New reservation request ${booking.id}`,
-    text: `${text}\nGuest email: ${booking.email}\nGuest phone: ${booking.phone}`
+    subject: `${event}: ${booking.id}`,
+    text: [
+      `Booking ID: ${booking.id}`,
+      `Guest: ${booking.firstName} ${booking.lastName}`,
+      `Email: ${booking.email}`,
+      `Phone: ${booking.phone}`,
+      `Dates: ${formatDate(booking.checkIn)} to ${formatDate(booking.checkOut)}`,
+      `Room: ${booking.roomType}`,
+      `Guests: ${booking.guests}`,
+      `Total price: $${booking.totalPrice}`,
+      `Status: ${status}`
+    ].join('\n')
   });
-  return { sent: customer.sent && hotel.sent };
 };
 
 const sendContactNotification = async (submission) => sendEmail({
@@ -85,16 +105,43 @@ const sendPaymentConfirmation = async (booking, depositAmount) => {
     text: [
       `Thank you, ${booking.firstName}.`,
       `Payment has been confirmed for reservation ${booking.id}.`,
+      `Transaction/reference ID: ${booking.stripePaymentIntentId || 'available in your payment receipt'}`,
       `Dates: ${formatDate(booking.checkIn)} to ${formatDate(booking.checkOut)}`,
+      `Booking status: ${booking.status}`,
       `Deposit paid: $${depositAmount}`,
       `Remaining balance due at check-in: $${Number(booking.totalPrice) - Number(depositAmount)}`
     ].join('\n')
   });
 };
 
+const sendCancellationEmail = async (booking, { refundIssued = false, refundAmount = 0 } = {}) => {
+  const text = [
+    `Reservation ${booking.id} has been cancelled.`,
+    `Guest: ${booking.firstName} ${booking.lastName}`,
+    `Dates: ${formatDate(booking.checkIn)} to ${formatDate(booking.checkOut)}`,
+    `Room: ${booking.roomType}`,
+    `Cancellation status: ${booking.status}`,
+    refundIssued ? `Refund issued: $${refundAmount}` : 'Refund issued: No'
+  ].join('\n');
+
+  const customer = await sendEmail({
+    to: booking.email,
+    subject: `Reservation cancelled: ${booking.id}`,
+    text
+  });
+  const hotel = await sendEmail({
+    to: hotelEmail,
+    subject: `Reservation cancellation: ${booking.id}`,
+    text
+  });
+  return { sent: customer.sent && hotel.sent, customerSent: customer.sent, hotelSent: hotel.sent };
+};
+
 module.exports = {
   sendBookingConfirmation,
+  sendHotelNotification,
   sendContactNotification,
   sendPaymentConfirmation,
+  sendCancellationEmail,
   sendEmail
 };

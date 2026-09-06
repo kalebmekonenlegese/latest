@@ -33,6 +33,27 @@ html, body {
   overflow-x: hidden;
 }
 
+.auth-dialog {
+  width: min(92vw, 460px);
+  border: 1px solid rgba(212, 165, 0, 0.45);
+  border-radius: var(--radius);
+  padding: 0;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.auth-dialog::backdrop { background: rgba(0, 0, 0, 0.78); }
+.auth-dialog-form { display: grid; gap: 14px; padding: 28px; }
+.auth-dialog-form label { display: grid; gap: 6px; font-weight: 700; }
+.auth-dialog-form input { width: 100%; padding: 11px; color: var(--text); background: var(--surface-soft); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; }
+.auth-dialog-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.auth-dialog-close { justify-self: end; color: var(--text); background: transparent; border: 0; font-size: 1.5rem; cursor: pointer; }
+.auth-dialog-error { min-height: 1.5em; color: #ff9b9b; }
+
+@media (max-width: 480px) {
+  .auth-dialog-fields { grid-template-columns: 1fr; }
+}
+
 img {
   max-width: 100%;
   display: block;

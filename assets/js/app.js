@@ -334,6 +334,115 @@ function createImageSkeletons() {
   updateScrollIndicator();
 })();
 
+// ========== AUTHENTICATION DIALOG ==========
+(function initializeAuthentication() {
+  const actions = document.querySelector('.top-actions');
+  const api = window.hotelAPI;
+  if (!actions || !api) return;
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'auth-dialog';
+  dialog.innerHTML = `
+    <form method="dialog" class="auth-dialog-form" novalidate>
+      <button type="submit" class="auth-dialog-close" aria-label="Close authentication dialog">×</button>
+      <p class="eyebrow">Guest access</p>
+      <h2 class="auth-dialog-title">Sign in</h2>
+      <div class="auth-dialog-fields auth-register-fields" hidden>
+        <label>First name<input name="firstName" autocomplete="given-name" required></label>
+        <label>Last name<input name="lastName" autocomplete="family-name" required></label>
+      </div>
+      <label>Email<input name="email" type="email" autocomplete="email" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+      <label class="auth-confirm-field" hidden>Confirm password<input name="confirmPassword" type="password" autocomplete="new-password"></label>
+      <p class="auth-dialog-error" role="alert" aria-live="assertive"></p>
+      <button type="button" class="buttoncall auth-submit">Sign in</button>
+      <button type="button" class="button-outline auth-switch">Create an account</button>
+    </form>`;
+  document.body.appendChild(dialog);
+
+  const form = dialog.querySelector('form');
+  const title = dialog.querySelector('.auth-dialog-title');
+  const registerFields = dialog.querySelector('.auth-register-fields');
+  const confirmField = dialog.querySelector('.auth-confirm-field');
+  const password = form.elements.password;
+  const error = dialog.querySelector('.auth-dialog-error');
+  const submit = dialog.querySelector('.auth-submit');
+  const switchMode = dialog.querySelector('.auth-switch');
+  let registerMode = false;
+
+  const renderMode = () => {
+    title.textContent = registerMode ? 'Create your account' : 'Sign in';
+    submit.textContent = registerMode ? 'Create account' : 'Sign in';
+    switchMode.textContent = registerMode ? 'Already have an account?' : 'Create an account';
+    registerFields.hidden = !registerMode;
+    confirmField.hidden = !registerMode;
+    registerFields.querySelectorAll('input').forEach((input) => {
+      input.required = registerMode;
+    });
+    confirmField.querySelector('input').required = registerMode;
+    password.autocomplete = registerMode ? 'new-password' : 'current-password';
+    error.textContent = '';
+  };
+
+  const open = (mode) => {
+    registerMode = mode;
+    renderMode();
+    dialog.showModal();
+    form.elements.email.focus();
+  };
+
+  actions.querySelector('[aria-label="Sign up"]')?.addEventListener('click', () => open(true));
+  actions.querySelector('[aria-label="Sign in"]')?.addEventListener('click', () => open(false));
+  const signOut = document.createElement('button');
+  signOut.type = 'button';
+  signOut.setAttribute('aria-label', 'Sign out');
+  signOut.textContent = 'sign out';
+  signOut.hidden = !api.isAuthenticated();
+  actions.appendChild(signOut);
+  const updateAuthActions = () => {
+    const authenticated = api.isAuthenticated();
+    actions.querySelector('[aria-label="Sign up"]')?.toggleAttribute('hidden', authenticated);
+    actions.querySelector('[aria-label="Sign in"]')?.toggleAttribute('hidden', authenticated);
+    signOut.hidden = !authenticated;
+  };
+  signOut.addEventListener('click', async () => {
+    signOut.disabled = true;
+    await api.logout();
+    signOut.disabled = false;
+    updateAuthActions();
+  });
+  updateAuthActions();
+  switchMode.addEventListener('click', () => {
+    registerMode = !registerMode;
+    renderMode();
+  });
+  submit.addEventListener('click', async () => {
+    error.textContent = '';
+    if (!form.reportValidity()) return;
+    if (registerMode && password.value !== form.elements.confirmPassword.value) {
+      error.textContent = 'Passwords do not match.';
+      return;
+    }
+    submit.disabled = true;
+    submit.textContent = 'Working...';
+    try {
+      await api.fetchCsrfToken();
+      if (registerMode) {
+        await api.register(form.elements.email.value.trim(), password.value, form.elements.firstName.value.trim(), form.elements.lastName.value.trim());
+      } else {
+        await api.login(form.elements.email.value.trim(), password.value);
+      }
+      dialog.close();
+      updateAuthActions();
+    } catch (requestError) {
+      error.textContent = requestError.error || requestError.message || 'Unable to complete authentication.';
+    } finally {
+      submit.disabled = false;
+      submit.textContent = registerMode ? 'Create account' : 'Sign in';
+    }
+  });
+})();
+
 // ========== HERO SLIDER ==========
 (function initializeHeroSlider() {
   const slides = Array.from(document.querySelectorAll('.banner-slide'));
@@ -944,13 +1053,15 @@ footerUI();
       return false;
     }
 
+    const requestedRooms = Number(roomCountSelect.value);
     const availability = await api.checkAvailability(
       checkInInput.value,
       checkOutInput.value,
-      roomSelect.value
+      roomSelect.value,
+      Number(adultsSelect.value) + Number(childrenSelect.value),
+      requestedRooms
     );
     const availableRooms = availability?.availability?.[roomSelect.value] ?? 0;
-    const requestedRooms = Number(roomCountSelect.value);
     if (availableRooms < requestedRooms) {
       showError('The selected room type is not available for those dates.');
       return false;
@@ -1022,7 +1133,7 @@ footerUI();
     let stripeCard = null;
     let intent = null;
 
-    paymentButton.addEventListener('click', async () => {
+    paymentButton.onclick = async () => {
       paymentButton.disabled = true;
       paymentMessage.textContent = 'Preparing secure payment...';
 
@@ -1046,6 +1157,7 @@ footerUI();
         stripeCard.mount(cardElementContainer);
         cardElementContainer.hidden = false;
         paymentButton.textContent = 'Pay now';
+        paymentButton.disabled = false;
         paymentMessage.textContent = 'Enter your card details, then select Pay now.';
         paymentButton.onclick = async () => {
           paymentButton.disabled = true;
@@ -1075,7 +1187,7 @@ footerUI();
         paymentMessage.textContent = error.error || error.message || 'Unable to process payment.';
         paymentButton.disabled = false;
       }
-    });
+    };
   }
 
   nextButton?.addEventListener('click', () => {

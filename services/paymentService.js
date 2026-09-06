@@ -1,6 +1,6 @@
 const prisma = require('../utils/db');
 const { stripeClient, environment } = require('../config');
-const { sendPaymentConfirmation } = require('./emailService');
+const { sendPaymentConfirmation, sendHotelNotification } = require('./emailService');
 
 const findBookingForPayment = ({ bookingId, userId, guestEmail }) => prisma.booking.findFirst({
   where: userId ? { id: bookingId, userId } : { id: bookingId, email: guestEmail }
@@ -170,7 +170,11 @@ const confirmPayment = async ({ bookingId, paymentIntentId, paymentMethodId, use
 
   let emailSent = false;
   if (updatedPaymentStatus === 'succeeded') {
-    const email = await sendPaymentConfirmation(booking, getDepositAmount(booking));
+    const email = await sendPaymentConfirmation(
+      { ...booking, status: 'CONFIRMED', stripePaymentIntentId: payment.stripePaymentIntentId },
+      getDepositAmount(booking)
+    );
+    await sendHotelNotification(booking, { event: 'Payment confirmed', status: 'CONFIRMED' });
     emailSent = email.sent;
   }
 
@@ -184,7 +188,66 @@ const confirmPayment = async ({ bookingId, paymentIntentId, paymentMethodId, use
   };
 };
 
+const handlePaymentWebhook = async (event) => {
+  const paymentIntent = event.data?.object;
+  const stripePaymentIntentId = paymentIntent?.id;
+
+  if (!stripePaymentIntentId) {
+    return { handled: false, reason: 'Payment intent ID missing' };
+  }
+
+  const payment = await prisma.payment.findFirst({
+    where: { stripePaymentIntentId }
+  });
+
+  if (!payment) {
+    return { handled: false, reason: 'Payment record not found' };
+  }
+
+  const booking = await prisma.booking.findUnique({ where: { id: payment.bookingId } });
+  const wasAlreadySucceeded = payment.status === 'succeeded';
+
+  if (event.type === 'payment_intent.succeeded') {
+    await prisma.$transaction(async (transaction) => {
+      await transaction.payment.update({
+        where: { id: payment.id },
+        data: { status: 'succeeded' }
+      });
+      await transaction.booking.update({
+        where: { id: payment.bookingId },
+        data: {
+          status: 'CONFIRMED',
+          paymentId: payment.id,
+          confirmedAt: new Date()
+        }
+      });
+    });
+
+    if (booking && !wasAlreadySucceeded) {
+      await sendPaymentConfirmation(
+        { ...booking, status: 'CONFIRMED', stripePaymentIntentId },
+        getDepositAmount(booking)
+      );
+      await sendHotelNotification(booking, { event: 'Payment confirmed', status: 'CONFIRMED' });
+    }
+
+    return { handled: true, status: 'succeeded', bookingId: payment.bookingId };
+  }
+
+  if (event.type === 'payment_intent.payment_failed') {
+    await prisma.payment.update({
+      where: { id: payment.id },
+      data: { status: 'failed' }
+    });
+
+    return { handled: true, status: 'failed', bookingId: payment.bookingId };
+  }
+
+  return { handled: false, reason: `Event type not handled: ${event.type}` };
+};
+
 module.exports = {
   createPaymentIntent,
-  confirmPayment
+  confirmPayment,
+  handlePaymentWebhook
 };

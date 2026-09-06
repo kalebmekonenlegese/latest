@@ -1,6 +1,7 @@
 jest.mock('../utils/db', () => ({
-  booking: { findFirst: jest.fn(), update: jest.fn() },
-  payment: { create: jest.fn(), findFirst: jest.fn(), update: jest.fn() }
+  booking: { findFirst: jest.fn(), findUnique: jest.fn(), update: jest.fn() },
+  payment: { create: jest.fn(), findFirst: jest.fn(), update: jest.fn() },
+  $transaction: jest.fn()
 }));
 
 jest.mock('../config', () => ({
@@ -15,10 +16,13 @@ jest.mock('../config', () => ({
 }));
 
 const prisma = require('../utils/db');
-const { createPaymentIntent, confirmPayment } = require('../services/paymentService');
+const { createPaymentIntent, confirmPayment, handlePaymentWebhook } = require('../services/paymentService');
 
 describe('paymentService (unit)', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    jest.clearAllMocks();
+    prisma.$transaction.mockImplementation((callback) => callback(prisma));
+  });
 
   test('createPaymentIntent success with stripe', async () => {
     prisma.booking.findFirst.mockResolvedValueOnce({
@@ -124,5 +128,55 @@ describe('paymentService (unit)', () => {
   test('createPaymentIntent - unauthorized booking access', async () => {
     prisma.booking.findFirst.mockResolvedValueOnce(null);
     await expect(createPaymentIntent({ bookingId: 'b1', userId: 'u1' })).rejects.toThrow('Booking not found');
+  });
+
+  test('handlePaymentWebhook - succeeded confirms payment and booking', async () => {
+    prisma.payment.findFirst.mockResolvedValueOnce({ id: 'p1', bookingId: 'b1', stripePaymentIntentId: 'pi_1' });
+    prisma.booking.findUnique.mockResolvedValueOnce({
+      id: 'b1',
+      firstName: 'Guest',
+      lastName: 'User',
+      email: 'guest@example.com',
+      phone: '+1234567890',
+      checkIn: new Date('2026-10-01'),
+      checkOut: new Date('2026-10-03'),
+      roomType: 'standard-room',
+      guests: 2,
+      totalPrice: 290,
+      nights: 2,
+      rooms: 1,
+      pricePerNight: 145
+    });
+
+    const result = await handlePaymentWebhook({
+      type: 'payment_intent.succeeded',
+      data: { object: { id: 'pi_1' } }
+    });
+
+    expect(result).toEqual({ handled: true, status: 'succeeded', bookingId: 'b1' });
+    expect(prisma.payment.update).toHaveBeenCalledWith({
+      where: { id: 'p1' },
+      data: { status: 'succeeded' }
+    });
+    expect(prisma.booking.update).toHaveBeenCalledWith(expect.objectContaining({
+      where: { id: 'b1' },
+      data: expect.objectContaining({ status: 'CONFIRMED', paymentId: 'p1' })
+    }));
+  });
+
+  test('handlePaymentWebhook - failed marks payment failed without confirming booking', async () => {
+    prisma.payment.findFirst.mockResolvedValueOnce({ id: 'p1', bookingId: 'b1', stripePaymentIntentId: 'pi_1' });
+
+    const result = await handlePaymentWebhook({
+      type: 'payment_intent.payment_failed',
+      data: { object: { id: 'pi_1' } }
+    });
+
+    expect(result).toEqual({ handled: true, status: 'failed', bookingId: 'b1' });
+    expect(prisma.payment.update).toHaveBeenCalledWith({
+      where: { id: 'p1' },
+      data: { status: 'failed' }
+    });
+    expect(prisma.booking.update).not.toHaveBeenCalled();
   });
 });

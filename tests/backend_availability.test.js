@@ -83,6 +83,22 @@ describe('availabilityService (unit)', () => {
     expect(result).toEqual({ 'standard-room': 2 });
   });
 
+  test('applies guest capacity per requested room', async () => {
+    await getAvailability({
+      checkIn: '2026-09-01',
+      checkOut: '2026-09-02',
+      roomType: 'standard-room',
+      guests: 4,
+      rooms: 2
+    });
+
+    expect(prisma.room.findMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({
+        capacity: { gte: 2 }
+      })
+    }));
+  });
+
   test('throws 400 for invalid roomType', async () => {
     await expect(getAvailability({ checkIn: '2026-09-01', checkOut: '2026-09-02', roomType: 'invalid-room' })).rejects.toThrow();
     try {

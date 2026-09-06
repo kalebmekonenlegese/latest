@@ -1,8 +1,24 @@
 const prisma = require('../utils/db');
 
 const activeBookingStatuses = ['PENDING_PAYMENT', 'CONFIRMED'];
+const roomTypeAliases = {
+  standard: 'standard-room',
+  deluxe: 'deluxe-room',
+  executive: 'executive-suite',
+  family: 'family-room',
+  'standard-room': 'standard-room',
+  'deluxe-room': 'deluxe-room',
+  'executive-suite': 'executive-suite',
+  'family-room': 'family-room'
+};
 
-const getAvailability = async ({ checkIn, checkOut, roomType, guests }) => {
+const normalizeRoomType = (roomType) => {
+  if (!roomType) return roomType;
+  const normalized = String(roomType).trim().toLowerCase();
+  return roomTypeAliases[normalized] || normalized;
+};
+
+const getAvailability = async ({ checkIn, checkOut, roomType, guests, rooms = 1 }) => {
   if (!checkIn || !checkOut) {
     const error = new Error('Check-in and check-out dates required');
     error.status = 400;
@@ -17,13 +33,15 @@ const getAvailability = async ({ checkIn, checkOut, roomType, guests }) => {
     throw error;
   }
 
+  const normalizedRoomType = normalizeRoomType(roomType);
+
   const inventories = await prisma.roomInventory.findMany({
-    where: roomType ? { roomType } : undefined,
+    where: normalizedRoomType ? { roomType: normalizedRoomType } : undefined,
     orderBy: { roomType: 'asc' }
   });
 
-  if (roomType) {
-    if (!inventories.some((inventory) => inventory.roomType === roomType)) {
+  if (normalizedRoomType) {
+    if (!inventories.some((inventory) => inventory.roomType === normalizedRoomType)) {
       const error = new Error('Invalid room type for availability lookup');
       error.status = 400;
       throw error;
@@ -37,12 +55,23 @@ const getAvailability = async ({ checkIn, checkOut, roomType, guests }) => {
     throw error;
   }
 
+  const requestedRooms = Number(rooms);
+  if (!Number.isInteger(requestedRooms) || requestedRooms < 1) {
+    const error = new Error('Rooms must be a positive integer');
+    error.status = 400;
+    throw error;
+  }
+
+  const guestsPerRoom = requestedGuests === null
+    ? null
+    : Math.ceil(requestedGuests / requestedRooms);
+
   const physicalRooms = typeof prisma.room?.findMany === 'function'
     ? await prisma.room.findMany({
       where: {
-        ...(roomType ? { roomType } : {}),
+        ...(normalizedRoomType ? { roomType: normalizedRoomType } : {}),
         status: 'AVAILABLE',
-        ...(requestedGuests ? { capacity: { gte: requestedGuests } } : {})
+        ...(guestsPerRoom ? { capacity: { gte: guestsPerRoom } } : {})
       },
       select: { roomType: true }
     })
@@ -50,7 +79,7 @@ const getAvailability = async ({ checkIn, checkOut, roomType, guests }) => {
 
   const bookings = await prisma.booking.findMany({
     where: {
-      ...(roomType ? { roomType } : {}),
+      ...(normalizedRoomType ? { roomType: normalizedRoomType } : {}),
       status: { in: activeBookingStatuses },
       checkIn: { lt: checkOutDate },
       checkOut: { gt: checkInDate }
@@ -79,7 +108,7 @@ const getAvailability = async ({ checkIn, checkOut, roomType, guests }) => {
     return available;
   }, {});
 
-  return roomType ? { [roomType]: availability[roomType] } : availability;
+  return normalizedRoomType ? { [normalizedRoomType]: availability[normalizedRoomType] } : availability;
 };
 
 const getRoomPricing = async () => {

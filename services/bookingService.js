@@ -1,6 +1,7 @@
 const { Prisma } = require('@prisma/client');
 const prisma = require('../utils/db');
 const { stripeClient, environment } = require('../config');
+const logger = require('../utils/logger');
 const {
   validateBookingDates,
   validateEmail,
@@ -25,7 +26,8 @@ const createBooking = async ({ userId, checkIn, checkOut, roomType, rooms = 1, g
         lastName = lastName || user.lastName;
         email = email || user.email;
       }
-    } catch (e) {
+    } catch (error) {
+      logger.error('Booking user lookup failed: %o userId=%s', error, userId);
       // If the user lookup fails, continue with validation and let the service report missing contact fields.
     }
   }

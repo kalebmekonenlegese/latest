@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const logger = require('./logger');
 
 const auditLogDir = path.join(__dirname, '..', 'logs');
 const auditLogFile = path.join(auditLogDir, 'audit.log');
@@ -16,7 +17,7 @@ const auditLog = (entry) => {
     };
     fs.appendFileSync(auditLogFile, JSON.stringify(payload) + '\n', 'utf8');
   } catch (error) {
-    console.error('Audit log write failed:', error.message);
+    logger.error('Audit log write failed: %o', error);
   }
 };
 

@@ -8,7 +8,7 @@
 class HotelAPIClient {
   constructor(config = {}) {
     this.baseURL = config.apiUrl || window.location.origin;
-    this.token = null;
+    this.token = localStorage.getItem('hotel_auth_token') || null;
     this.userId = localStorage.getItem('hotel_user_id') || null;
     this.csrfToken = null;
     this.csrfRequest = null;
@@ -118,6 +118,7 @@ class HotelAPIClient {
       this.userId = result.user.id;
       localStorage.setItem('hotel_user_id', result.user.id);
     }
+    this.setAuthToken(result.token);
 
     return result;
   }
@@ -132,6 +133,7 @@ class HotelAPIClient {
       this.userId = result.user.id;
       localStorage.setItem('hotel_user_id', result.user.id);
     }
+    this.setAuthToken(result.token);
 
     return result;
   }
@@ -143,13 +145,18 @@ class HotelAPIClient {
       console.warn('Logout request failed; clearing local auth state anyway.', error);
     }
 
-    this.token = null;
+    this.setAuthToken(null);
     this.userId = null;
     localStorage.removeItem('hotel_user_id');
   }
 
   setAuthToken(token) {
     this.token = token;
+    if (token) {
+      localStorage.setItem('hotel_auth_token', token);
+    } else {
+      localStorage.removeItem('hotel_auth_token');
+    }
   }
 
   isAuthenticated() {
@@ -228,10 +235,16 @@ class HotelAPIClient {
   // AVAILABILITY
   // ============================================================
 
-  async checkAvailability(checkIn, checkOut, roomType = null) {
+  async checkAvailability(checkIn, checkOut, roomType = null, guests = null, rooms = 1) {
     let url = `/api/availability?checkIn=${checkIn}&checkOut=${checkOut}`;
     if (roomType) {
       url += `&roomType=${roomType}`;
+    }
+    if (guests !== null && guests !== undefined) {
+      url += `&guests=${encodeURIComponent(guests)}`;
+    }
+    if (rooms !== null && rooms !== undefined) {
+      url += `&rooms=${encodeURIComponent(rooms)}`;
     }
     return this.request('GET', url);
   }

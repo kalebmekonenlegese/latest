@@ -1,5 +1,6 @@
 const { registerUser, loginUser } = require('../services/authService');
 const auditEvent = require('../middlewares/audit');
+const logger = require('../utils/logger');
 
 const setAuthCookie = (res, token) => {
   res.cookie('auth_token', token, {
@@ -29,8 +30,13 @@ const register = async (req, res) => {
     auditEvent(req, 'register', 'success', { email: payload.email });
     res.status(201).json({ success: true, message: 'User registered successfully', ...result, requestId: req.id });
   } catch (error) {
+    logger.error('Auth register failed: %o requestId=%s method=%s path=%s', error, req.id, req.method, req.path);
     auditEvent(req, 'register', 'failed', { error: error.message, email: req.body.email });
-    res.status(error.status || 500).json({ error: error.message, requestId: req.id });
+    res.status(error.status || 500).json({
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
+      requestId: req.id
+    });
   }
 };
 
@@ -44,8 +50,13 @@ const login = async (req, res) => {
     auditEvent(req, 'login', 'success', { email: payload.email });
     res.json({ success: true, message: 'Login successful', ...result, requestId: req.id });
   } catch (error) {
+    logger.error('Auth login failed: %o requestId=%s method=%s path=%s', error, req.id, req.method, req.path);
     auditEvent(req, 'login', 'failed', { error: error.message, email: req.body.email });
-    res.status(error.status || 500).json({ error: error.message, requestId: req.id });
+    res.status(error.status || 500).json({
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
+      requestId: req.id
+    });
   }
 };
 
