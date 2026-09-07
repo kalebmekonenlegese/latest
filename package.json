@@ -10,6 +10,7 @@
     "dev": "vite",
     "start": "node server.js",
     "server": "node server.js",
+    "db:migrate:deploy": "prisma migrate deploy",
     "build": "vite build",
     "preview": "vite preview --port 5000",
     "optimize": "node build-scripts/optimize.js",

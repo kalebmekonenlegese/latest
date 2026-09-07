@@ -27,6 +27,8 @@ describe('CSRF token endpoint in production-like environment', () => {
     expect(res.body.csrfToken).toBeDefined();
     expect(typeof res.body.csrfToken).toBe('string');
     expect(res.headers['set-cookie']).toEqual(expect.arrayContaining([expect.stringContaining('csrf-secure=')]));
+    expect(res.headers['set-cookie'].join(';')).toMatch(/SameSite=None/i);
+    expect(res.headers['set-cookie'].join(';')).toMatch(/Secure/i);
   });
 
   test('accepts the configured mixed-case CSRF header on a state-changing request', async () => {

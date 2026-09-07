@@ -71,6 +71,7 @@ NODE_ENV=production
 PORT=3000
 FRONTEND_URL=https://your-frontend-domain.com
 CORS_ORIGIN=https://your-frontend-domain.com
+BACKEND_URL=https://your-backend-domain.com
 DATABASE_URL=postgresql://...
 DIRECT_URL=postgresql://...
 JWT_SECRET=your-jwt-secret
@@ -91,6 +92,16 @@ SENTRY_DSN=
 SENTRY_RELEASE=hatsey-kaleb-hotel@1.0.0
 LOG_LEVEL=info
 ```
+
+After setting the production database URL, run the tracked migrations before accepting traffic:
+
+```bash
+npm ci
+npx prisma generate
+npm run db:migrate:deploy
+```
+
+The backend startup log prints the effective environment, cookie policy, CORS origins, and backend CSP origin. In production it should report `sameSite=none` and `secure=true`.
 
 Use Render’s environment variable editor or dashboard to add each value.
 

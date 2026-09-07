@@ -1,12 +1,16 @@
 const { registerUser, loginUser } = require('../services/authService');
 const auditEvent = require('../middlewares/audit');
 const logger = require('../utils/logger');
+const isProduction = process.env.NODE_ENV === 'production';
+const crossSiteCookiesEnabled = isProduction || process.env.ALLOW_CROSS_SITE_COOKIES === 'true';
+const cookieSameSite = crossSiteCookiesEnabled ? 'none' : 'strict';
+const secureCookies = crossSiteCookiesEnabled;
 
 const setAuthCookie = (res, token) => {
   res.cookie('auth_token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: secureCookies,
+    sameSite: cookieSameSite,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: '/'
   });
@@ -15,8 +19,8 @@ const setAuthCookie = (res, token) => {
 const clearAuthCookie = (res) => {
   res.clearCookie('auth_token', {
     path: '/',
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax'
+    secure: secureCookies,
+    sameSite: cookieSameSite
   });
 };
 

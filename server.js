@@ -30,6 +30,12 @@ const { environment, frontendUrl } = require('./config');
 const app = express();
 const port = process.env.PORT || 3000;
 const enableHttpsRedirect = process.env.ENABLE_HTTPS_REDIRECT === 'true';
+const isProduction = environment === 'production';
+const crossSiteCookiesEnabled = isProduction || process.env.ALLOW_CROSS_SITE_COOKIES === 'true';
+const cookieSameSite = crossSiteCookiesEnabled ? 'none' : 'strict';
+const secureCookies = crossSiteCookiesEnabled;
+const backendUrl = process.env.BACKEND_URL || process.env.RENDER_EXTERNAL_URL || '';
+const backendConnectSources = backendUrl ? [backendUrl.replace(/\/$/, '')] : [];
 
 app.set('trust proxy', 1);
 
@@ -208,7 +214,7 @@ app.use(
         scriptSrc: ["'self'", 'https://js.stripe.com', ...(analyticsEnabled ? ["https://www.googletagmanager.com", "https://www.google-analytics.com", "https://www.clarity.ms"] : [])],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", 'data:'],
-        connectSrc: ["'self'", 'https://hatsey-kaleb-backend.onrender.com', 'https://api.stripe.com', ...(analyticsEnabled ? ["https://www.googletagmanager.com", "https://www.google-analytics.com", "https://www.clarity.ms"] : [])],
+        connectSrc: ["'self'", ...backendConnectSources, 'https://api.stripe.com', ...(analyticsEnabled ? ["https://www.googletagmanager.com", "https://www.google-analytics.com", "https://www.clarity.ms"] : [])],
         fontSrc: ["'self'"],
         frameSrc: ["'self'", 'https://www.google.com', 'https://js.stripe.com', 'https://hooks.stripe.com', ...(analyticsEnabled ? ['https://www.googletagmanager.com'] : [])],
         objectSrc: ["'none'"],
@@ -264,8 +270,8 @@ const csrfOptions = {
   cookie: {
     key: process.env.CSRF_COOKIE_NAME || 'csrfToken',
     httpOnly: true,
-    secure: environment === 'production',
-    sameSite: 'strict',
+    secure: secureCookies,
+    sameSite: cookieSameSite,
     maxAge: 3600000
   },
   value: (req) => {
@@ -283,8 +289,8 @@ if (process.env.NODE_ENV !== 'test') {
 app.get('/api/csrf-token', (req, res) => {
   res.cookie('csrf-secure', 'true', {
     httpOnly: true,
-    secure: environment === 'production',
-    sameSite: 'strict',
+    secure: secureCookies,
+    sameSite: cookieSameSite,
     maxAge: 3600000,
     path: '/'
   });
@@ -334,7 +340,7 @@ if (environment === 'production') {
         `script-src 'self' ${nonceSources} ${analyticsSources.join(' ')}`.trim(),
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data:",
-        `connect-src 'self' https://hatsey-kaleb-backend.onrender.com ${analyticsSources.join(' ')}`.trim(),
+        `connect-src 'self' ${backendConnectSources.join(' ')} ${analyticsSources.join(' ')}`.trim(),
         "font-src 'self'",
         "frame-src 'self' https://www.google.com",
         "object-src 'none'",
@@ -443,6 +449,7 @@ const createServer = () => {
 let server = null;
 
 const logStartup = () => {
+  logger.info('Cookie policy: environment=%s sameSite=%s secure=%s corsOrigins=%s backendUrl=%s', environment, cookieSameSite, secureCookies, corsOrigins.join(','), backendUrl || '(not configured)');
   logger.info(`\n╔════════════════════════════════════════════════════════════╗\n║  🏨 Hatsey Kaleb Hotel - Backend API Server               ║\n║  Port: ${port}                                                  ║\n║  Environment: ${environment}                                    ║\n╚════════════════════════════════════════════════════════════╝\n\nAvailable Endpoints:\n  Health: GET /health\n  Auth:\n    POST /api/auth/register\n    POST /api/auth/login\n  Bookings:\n    POST /api/bookings\n    GET /api/bookings/:bookingId\n    GET /api/bookings\n  Payments:\n    POST /api/payments/create-intent\n    POST /api/payments/confirm\n  Contact:\n    POST /api/contact\n  Reviews:\n    POST /api/reviews\n    GET /api/reviews\n  Newsletter:\n    POST /api/newsletter/subscribe\n    POST /api/newsletter/unsubscribe\n  Availability:\n    GET /api/availability\n  Analytics:\n    POST /api/analytics\n  CSRF Token: GET /api/csrf-token\nFrontend URL: ${frontendUrl}\n  `);
 };
 
