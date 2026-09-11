@@ -91,7 +91,19 @@
     <div id="app">
       <main id="main-content">
         <section class="hero hero--tall hero--video" aria-labelledby="home-title">
-          <img class="hero__image hero__fallback is-visible" src="/assets/images/hero-poster.jpg" alt="Hatsey Kaleb Hotel exterior at golden hour" width="1600" height="900" aria-hidden="true">
+          <video
+            class="hero__image hero__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/assets/images/hero-poster.jpg"
+            aria-hidden="true"
+          >
+            <source src="/assets/images/hero-video-optimized.mp4" type="video/mp4">
+          </video>
+          <img class="hero__fallback" src="/assets/images/hero-poster.jpg" alt="Hatsey Kaleb Hotel exterior at golden hour" width="1600" height="900" aria-hidden="true">
           <div class="hero__overlay"></div>
           <div class="hero-copy">
             <p class="eyebrow">Warm hospitality in Tigray</p>
