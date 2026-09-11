@@ -818,8 +818,8 @@
     /* AI Concierge widget styles */
     #ai-concierge {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
+      left: 22px;
+      bottom: 22px;
       z-index: 2000;
       font-family: inherit;
     }
@@ -828,12 +828,22 @@
       width: 62px;
       height: 62px;
       border-radius: 999px;
-      border: none;
-      background: linear-gradient(180deg, var(--accent), #d8a800);
-      color: #111;
-      font-size: 1.6rem;
+      border: 2px solid rgba(241, 188, 11, 0.9);
+      background: #0d0d0d;
+      color: var(--accent);
+      font-size: 1.5rem;
       box-shadow: 0 18px 30px rgba(0,0,0,0.35);
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    #concierge-toggle:hover,
+    #concierge-toggle:focus-visible {
+      background: var(--accent);
+      color: #111;
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(241, 188, 11, 0.25);
+      outline: none;
     }
 
     #concierge-dialog {
