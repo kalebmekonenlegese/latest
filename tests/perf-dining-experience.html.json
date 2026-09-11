@@ -1,16 +1,7 @@
 {
-  "paint": [
-    {
-      "name": "first-paint",
-      "start": 192
-    },
-    {
-      "name": "first-contentful-paint",
-      "start": 192
-    }
-  ],
+  "paint": [],
   "navigation": {
-    "domContentLoaded": 195.29999995231628,
-    "load": 195.89999997615814
+    "domContentLoaded": 50.699999928474426,
+    "load": 156.89999997615814
   }
 }

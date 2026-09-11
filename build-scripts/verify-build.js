@@ -4,8 +4,8 @@
  * Checks that production build is complete and valid
  */
 
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const root = process.cwd();
 const dist = path.join(root, 'dist');
@@ -87,7 +87,12 @@ function extractAssetReferences(htmlContent) {
 
     const candidates = srcsetValue.match(/(?:^|,\s*)([^\s,]+)(?:\s+[^,]+)?/g) || [];
     candidates.forEach((candidate) => {
-      const url = normalizeReference(candidate.replace(/^\s*,\s*/, '').trim().split(/\s+/)[0] || '');
+      const url = normalizeReference(
+        candidate
+          .replace(/^\s*,\s*/, '')
+          .trim()
+          .split(/\s+/)[0] || ''
+      );
       if (url) {
         references.add(url);
       }
@@ -218,7 +223,12 @@ function verifyBuild() {
       log(`  ✗ ${file} missing closing html tag`, 'red');
       errors++;
     } else if (missingAssets.length > 0) {
-      log(`  ✗ ${file} references missing asset(s): ${missingAssets.slice(0, 5).join(', ')}${missingAssets.length > 5 ? ' ...' : ''}`, 'red');
+      log(
+        `  ✗ ${file} references missing asset(s): ${missingAssets.slice(0, 5).join(', ')}${
+          missingAssets.length > 5 ? ' ...' : ''
+        }`,
+        'red'
+      );
       errors += missingAssets.length > 0 ? 1 : 0;
     } else {
       validHtmlCount++;

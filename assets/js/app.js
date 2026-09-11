@@ -1,3 +1,6 @@
+import Lenis from 'lenis';
+import { photographyManifest } from '../config/photography-manifest.js';
+
 // ========== SHARED UTILITIES ==========
 
 function setInert(el, state) {
@@ -14,6 +17,16 @@ function setInert(el, state) {
 }
 
 document.documentElement.classList.add('js-enabled');
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReducedMotion) {
+  const lenis = new Lenis({ duration: 1.1, smoothWheel: true, anchors: true });
+  const animateScroll = (time) => {
+    lenis.raf(time);
+    window.requestAnimationFrame(animateScroll);
+  };
+  window.requestAnimationFrame(animateScroll);
+}
 
 document.querySelectorAll('.skip-link').forEach((link) => {
   if (!link.hasAttribute('tabindex')) {
@@ -38,6 +51,213 @@ function createImageSkeletons() {
    }
   });
 }
+
+function initializeHeroVideo() {
+  const video = document.querySelector('.hero__video');
+  const fallback = document.querySelector('.hero__fallback');
+  if (!video) return;
+
+  const showFallback = () => {
+    video.classList.add('media-failed');
+    fallback?.classList.add('is-visible');
+  };
+
+  video.addEventListener('error', showFallback, { once: true });
+  if (prefersReducedMotion) {
+    video.pause();
+    video.removeAttribute('autoplay');
+    fallback?.classList.add('is-visible');
+    return;
+  }
+  video.addEventListener('loadeddata', () => video.classList.add('is-loaded'), { once: true });
+  video.play().catch(showFallback);
+}
+
+function initializeSuppliedPictureSources() {
+  document.querySelectorAll('picture').forEach((picture) => {
+    const image = picture.querySelector('img[src^="/assets/images/"]');
+    if (!image) return;
+    const sourcePath = image.getAttribute('src');
+    const extension = sourcePath.split('.').pop()?.toLowerCase();
+    const mimeType = extension === 'avif' ? 'image/avif' : extension === 'webp' ? 'image/webp' : 'image/jpeg';
+    picture.querySelectorAll('source').forEach((source) => {
+      source.type = mimeType;
+      source.srcset = `${sourcePath} 1600w`;
+    });
+  });
+}
+
+function initializeSuppliedPlaceholderMedia() {
+  const replacements = [
+    ['bedroom-deluxe', '/assets/images/deluxe-room.jpg'],
+    ['deluxe-room', '/assets/images/deluxe-room.jpg'],
+    ['bedroom-standard', '/assets/images/suite.jpg'],
+    ['rooms', '/assets/images/deluxe-room.jpg'],
+    ['bedroom-exec', '/assets/images/suite.jpg'],
+    ['executive-suite', '/assets/images/suite.jpg'],
+    ['restaurant', '/assets/images/restaurant.jpg'],
+    ['spa', '/assets/images/spa.webp'],
+    ['wedding', '/assets/images/wedding.avif'],
+    ['conference', '/assets/images/conference.avif'],
+    ['events', '/assets/images/conference.avif'],
+    ['transportation', '/assets/images/airport-transfer.jpg'],
+    ['airport', '/assets/images/airport-transfer.jpg'],
+    ['facilities', '/assets/images/gym.png'],
+    ['gallery', '/assets/images/gallery-01.webp'],
+    ['hotel-exterior', '/assets/images/hotel-exterior.jpg'],
+    ['attractions', '/assets/images/drone.jpg']
+  ];
+  const pageAsset = {
+    '/rooms.html': '/assets/images/deluxe-room.jpg',
+    '/standard-room.html': '/assets/images/suite.jpg',
+    '/deluxe-room.html': '/assets/images/deluxe-room.jpg',
+    '/executive-suite.html': '/assets/images/suite.jpg',
+    '/family-room.html': '/assets/images/suite.jpg',
+    '/restaurant.html': '/assets/images/restaurant.jpg',
+    '/dining-experience.html': '/assets/images/restaurant.jpg',
+    '/spa-wellness.html': '/assets/images/spa.webp',
+    '/events.html': '/assets/images/conference.avif',
+    '/conferences.html': '/assets/images/conference.avif',
+    '/weddings.html': '/assets/images/wedding.avif',
+    '/transportation.html': '/assets/images/airport-transfer.jpg',
+    '/facilities.html': '/assets/images/gym.png',
+    '/gallery.html': '/assets/images/gallery-01.webp'
+  };
+  const fallbackAsset = pageAsset[window.location.pathname];
+
+  document.querySelectorAll('img').forEach((image) => {
+    const source = image.getAttribute('src') || '';
+    if (/logo|lordicon/i.test(source) || /logo|icon/i.test(image.alt || '')) return;
+    const match = replacements.find(([token]) => source.toLowerCase().includes(token));
+    if (match) {
+      image.setAttribute('src', match[1]);
+      image.classList.add('photo-ready');
+    } else if (source.startsWith('data:') && fallbackAsset) {
+      image.setAttribute('src', fallbackAsset);
+      image.classList.add('photo-ready');
+    }
+  });
+}
+
+function initializePhotographyPlanning() {
+  const imageKeyBySource = [
+    ['hotel-exterior', 'hotel-exterior'],
+    ['hotel-hero', 'hotel-exterior'],
+    ['hotel-exterior', 'hotel-exterior'],
+    ['lobby', 'lobby-reception'],
+    ['deluxe', 'deluxe-room'],
+    ['bedroom-deluxe', 'deluxe-room'],
+    ['standard', 'standard-room'],
+    ['bedroom-standard', 'standard-room'],
+    ['executive-suite', 'executive-suite'],
+    ['family-room', 'deluxe-room'],
+    ['bathroom', 'bathroom'],
+    ['restaurant', 'restaurant'],
+    ['dining', 'restaurant'],
+    ['breakfast', 'breakfast-buffet'],
+    ['coffee', 'coffee-ceremony'],
+    ['cuisine', 'tigrayan-cuisine'],
+    ['spa', 'spa-treatment'],
+    ['fitness', 'fitness-center'],
+    ['conference', 'conference-hall'],
+    ['wedding', 'wedding-venue'],
+    ['airport', 'airport-transfer'],
+    ['parking', 'parking-ev-charging'],
+    ['concierge', 'concierge'],
+    ['front-desk', 'staff-front-desk'],
+    ['guest', 'guest-experience'],
+    ['gheralta', 'gheralta-mountains'],
+    ['historical', 'historical-sites'],
+    ['drone', 'drone-aerial'],
+    ['sunset', 'sunset-night'],
+    ['gallery', 'gallery-editorial']
+  ];
+
+  document.querySelectorAll('img').forEach((image) => {
+    const authoredSource = image.getAttribute('src') || '';
+    const source = authoredSource.startsWith('data:')
+      ? image.closest('a')?.dataset.full || image.currentSrc || ''
+      : authoredSource;
+    const sourceName = source.split('/').pop()?.toLowerCase() || '';
+    const match = imageKeyBySource.find(([token]) => sourceName.includes(token));
+    const key = match?.[1];
+    const brief = key ? photographyManifest[key] : null;
+    if (!brief) return;
+
+    image.dataset.photoKey = key;
+    image.dataset.photoPath = brief.path;
+    image.dataset.photoOrientation = brief.orientation;
+    image.dataset.photoRatio = brief.ratio;
+    image.dataset.photoMinimumResolution = brief.minimumResolution;
+    image.dataset.photoSubject = brief.subject;
+    image.dataset.photoComposition = brief.composition;
+    image.dataset.photoAlt = brief.alt;
+    image.classList.add('photo-ready');
+
+    if (document.documentElement.dataset.photoPlanning !== 'true') return;
+    const frame = image.closest('picture, figure, .hero, .gallery-item, .room-card, .service-card, .event-card, .offer-card') || image.parentElement;
+    if (!frame || frame.querySelector('.photo-planning-label')) return;
+    const label = document.createElement('span');
+    label.className = 'photo-planning-label';
+    label.textContent = `${key} | ${brief.ratio} | min ${brief.minimumResolution}`;
+    label.title = `${brief.path}\n${brief.subject}\n${brief.composition}`;
+    frame.appendChild(label);
+  });
+}
+
+if (new URLSearchParams(window.location.search).get('photo-planning') === '1') {
+  document.documentElement.dataset.photoPlanning = 'true';
+}
+
+// ========== TRUST & CONTACT UI ==========
+(function initializeCookieConsent() {
+  const storageKey = 'hotelCookieConsent';
+  let consent;
+  try {
+    consent = localStorage.getItem(storageKey);
+  } catch {
+    return;
+  }
+  if (consent || document.querySelector('.cookie-consent')) return;
+
+  const banner = document.createElement('aside');
+  banner.className = 'cookie-consent';
+  banner.setAttribute('role', 'status');
+  banner.setAttribute('aria-live', 'polite');
+  banner.innerHTML = `
+    <p>We use cookies to keep this site working and understand how it is used. <a href="cookie-policy.html">Read our cookie policy</a>.</p>
+    <div class="cookie-consent-actions">
+      <button type="button" class="cookie-consent-decline">Decline</button>
+      <button type="button" class="cookie-consent-accept">Accept</button>
+    </div>`;
+  document.body.appendChild(banner);
+
+  const setConsent = (value) => {
+    try {
+      localStorage.setItem(storageKey, value);
+    } catch {
+      // The banner can still be dismissed when storage is unavailable.
+    }
+    banner.remove();
+  };
+
+  banner.querySelector('.cookie-consent-decline').addEventListener('click', () => setConsent('declined'));
+  banner.querySelector('.cookie-consent-accept').addEventListener('click', () => setConsent('accepted'));
+})();
+
+(function initializeWhatsAppButton() {
+  if (document.querySelector('.whatsapp-float')) return;
+  const footerLink = document.querySelector('footer a[href*="wa.me/"]');
+  const href = footerLink?.href || 'https://wa.me/251914754143';
+  const button = document.createElement('a');
+  button.className = 'whatsapp-float';
+  button.href = href;
+  button.target = '_blank';
+  button.rel = 'noopener';
+  button.setAttribute('aria-label', 'Chat with us on WhatsApp');
+  button.textContent = 'WhatsApp';
+  document.body.appendChild(button);
+})();
 
 // ========== HEADER & NAVIGATION ==========
 (function initializeHeader() {
@@ -321,6 +541,10 @@ function createImageSkeletons() {
       });
     }
     createImageSkeletons();
+    initializeSuppliedPlaceholderMedia();
+    initializeSuppliedPictureSources();
+    initializeHeroVideo();
+    initializePhotographyPlanning();
     setPageReady();
   }
 
@@ -348,12 +572,17 @@ function createImageSkeletons() {
       <p class="eyebrow">Guest access</p>
       <h2 class="auth-dialog-title">Sign in</h2>
       <div class="auth-dialog-fields auth-register-fields" hidden>
-        <label>First name<input name="firstName" autocomplete="given-name" required></label>
-        <label>Last name<input name="lastName" autocomplete="family-name" required></label>
+        <label for="auth-first-name">First name</label>
+        <input id="auth-first-name" name="firstName" autocomplete="given-name" required>
+        <label for="auth-last-name">Last name</label>
+        <input id="auth-last-name" name="lastName" autocomplete="family-name" required>
       </div>
-      <label>Email<input name="email" type="email" autocomplete="email" required></label>
-      <label>Password<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
-      <label class="auth-confirm-field" hidden>Confirm password<input name="confirmPassword" type="password" autocomplete="new-password"></label>
+      <label for="auth-email">Email</label>
+      <input id="auth-email" name="email" type="email" autocomplete="email" required>
+      <label for="auth-password">Password</label>
+      <input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="8" required>
+      <label class="auth-confirm-field" for="auth-confirm-password" hidden>Confirm password</label>
+      <input id="auth-confirm-password" name="confirmPassword" type="password" autocomplete="new-password">
       <p class="auth-dialog-error" role="alert" aria-live="assertive"></p>
       <button type="button" class="buttoncall auth-submit">Sign in</button>
       <button type="button" class="button-outline auth-switch">Create an account</button>
@@ -520,11 +749,16 @@ function scheduleIdleTask(task) {
 // ========== SCROLL REVEAL ANIMATIONS ==========
 scheduleIdleTask(() => {
   (function initializeReveal() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const revealElements = Array.from(document.querySelectorAll('section, .hero-copy, .room-card, .service-card, .event-card, .offer-card, .benefit-card, .review-card, .gallery-grid img, .booking-form, .contact-card'));
+    const revealElements = Array.from(document.querySelectorAll('section, .hero-copy, .room-card, .service-card, .event-card, .offer-card, .benefit-card, .review-card, .gallery-grid img, .booking-form, .contact-card, .team-card, .stat-panel, .split-panel, .dining-card, .package-card, .home-feature, .vt-card, .final-cta-card'));
 
     revealElements.forEach((element) => {
       element.classList.add('reveal');
+      const staggerContainer = element.closest('.benefits-grid, .room-grid, .service-grid, .review-cards, .gallery-grid, .event-grid, .special-grid, .package-grid, .home-feature-grid');
+      if (staggerContainer) {
+        const item = element.matches('img') ? element.closest('.gallery-item') : element;
+        const itemIndex = Array.from(staggerContainer.children).indexOf(item);
+        if (itemIndex >= 0) element.style.setProperty('--reveal-delay', `${Math.min(itemIndex, 5) * 80}ms`);
+      }
       if (prefersReducedMotion) {
         element.classList.add('reveal-visible');
       }
@@ -1103,86 +1337,39 @@ footerUI();
     return true;
   }
 
-  async function loadStripe() {
-    if (window.Stripe) return window.Stripe;
-    await new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://js.stripe.com/v3/';
-      script.onload = resolve;
-      script.onerror = () => reject(new Error('Unable to load secure payment tools.'));
-      document.head.appendChild(script);
-    });
-    return window.Stripe;
-  }
-
   async function setupPayment(booking) {
     const paymentPanel = document.createElement('div');
     paymentPanel.className = 'payment-panel';
     paymentPanel.innerHTML = `
       <h4>Complete payment</h4>
       <p class="payment-amount">Your one-night deposit will be calculated securely.</p>
-      <div class="payment-card-element" hidden></div>
       <p class="payment-message" role="status" aria-live="polite"></p>
       <button type="button" class="buttoncall payment-button">Continue to secure payment</button>
     `;
     confirmationPanel.appendChild(paymentPanel);
 
     const paymentButton = paymentPanel.querySelector('.payment-button');
-    const cardElementContainer = paymentPanel.querySelector('.payment-card-element');
     const paymentMessage = paymentPanel.querySelector('.payment-message');
-    let stripeCard = null;
-    let intent = null;
 
     paymentButton.onclick = async () => {
       paymentButton.disabled = true;
-      paymentMessage.textContent = 'Preparing secure payment...';
+      paymentMessage.textContent = 'Preparing Chapa checkout...';
 
       try {
-        intent ||= await window.hotelAPI.createPaymentIntent(
+        const result = await window.hotelAPI.initializeChapaPayment(
           booking.id,
           guestEmailInput.value.trim()
         );
-        paymentPanel.querySelector('.payment-amount').textContent =
-          `One-night deposit: ${formatCurrency(intent.amount)}`;
 
-        const publishableKey = window.HotelAppConfig?.payment?.stripePublicKey;
-        if (!publishableKey) {
-          throw new Error('Secure payment is not configured. Please contact the reservations team.');
+        paymentPanel.querySelector('.payment-amount').textContent =
+          `One-night deposit: ${formatCurrency(result.amount)}`;
+
+        if (!result.checkoutUrl) {
+          throw new Error('Chapa checkout URL is missing. Please contact the reservations team.');
         }
 
-        const Stripe = await loadStripe();
-        const stripe = Stripe(publishableKey);
-        const elements = stripe.elements();
-        stripeCard = elements.create('card');
-        stripeCard.mount(cardElementContainer);
-        cardElementContainer.hidden = false;
-        paymentButton.textContent = 'Pay now';
-        paymentButton.disabled = false;
-        paymentMessage.textContent = 'Enter your card details, then select Pay now.';
-        paymentButton.onclick = async () => {
-          paymentButton.disabled = true;
-          paymentMessage.textContent = 'Confirming payment...';
-          const payment = await stripe.confirmCardPayment(intent.clientSecret, {
-            payment_method: {
-              card: stripeCard,
-              billing_details: {
-                name: guestNameInput.value.trim(),
-                email: guestEmailInput.value.trim()
-              }
-            }
-          });
-          if (payment.error) throw payment.error;
-          const result = await window.hotelAPI.confirmPayment(
-            booking.id,
-            intent.paymentIntentId,
-            payment.paymentIntent?.payment_method || '',
-            guestEmailInput.value.trim()
-          );
-          paymentMessage.textContent = result.booking?.status === 'CONFIRMED'
-            ? 'Deposit confirmed. Your stay is confirmed.'
-            : 'Payment is still processing.';
-          paymentButton.remove();
-        };
+        paymentMessage.textContent = 'Redirecting to the secure Chapa payment page...';
+        window.location.href = result.checkoutUrl;
       } catch (error) {
         paymentMessage.textContent = error.error || error.message || 'Unable to process payment.';
         paymentButton.disabled = false;

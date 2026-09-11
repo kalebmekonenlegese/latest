@@ -287,7 +287,10 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.get('/api/csrf-token', (req, res) => {
-  res.cookie('csrf-secure', 'true', {
+  const csrfCookieName = process.env.CSRF_COOKIE_NAME || 'csrfToken';
+  const csrfToken = typeof req.csrfToken === 'function' ? req.csrfToken() : 'test-csrf-token';
+
+  res.cookie(csrfCookieName, csrfToken, {
     httpOnly: true,
     secure: secureCookies,
     sameSite: cookieSameSite,
@@ -295,7 +298,13 @@ app.get('/api/csrf-token', (req, res) => {
     path: '/'
   });
 
-  const csrfToken = typeof req.csrfToken === 'function' ? req.csrfToken() : 'test-csrf-token';
+  res.cookie('csrf-secure', secureCookies ? 'true' : 'false', {
+    httpOnly: true,
+    secure: secureCookies,
+    sameSite: cookieSameSite,
+    maxAge: 3600000,
+    path: '/'
+  });
 
   res.json({
     success: true,

@@ -20,6 +20,10 @@ import('../assets/js/app.js').catch((_err) => {
   revealPageFallback();
 });
 
-window.addEventListener('load', () => {
-  revealPageFallback();
-}, { once: true });
+window.addEventListener(
+  'load',
+  () => {
+    revealPageFallback();
+  },
+  { once: true }
+);

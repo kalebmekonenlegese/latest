@@ -108,7 +108,7 @@
       <picture>
   <source type="image/avif" srcset="/images/spa-wellness-hero.svg 320w, /images/spa-wellness-hero.svg 480w, /images/spa-wellness-hero.svg 640w, /images/spa-wellness-hero.svg 900w, /images/spa-wellness-hero.svg 1200w, /images/spa-wellness-hero.svg 1600w" sizes="100vw">
   <source type="image/webp" srcset="/images/spa-wellness-hero.svg 320w, /images/spa-wellness-hero.svg 480w, /images/spa-wellness-hero.svg 640w, /images/spa-wellness-hero.svg 900w, /images/spa-wellness-hero.svg 1200w, /images/spa-wellness-hero.svg 1600w" sizes="100vw">
-  <img src="/images/spa.svg" class="image-skeleton" alt="Spa and wellness" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+  <img src="/assets/images/spa.webp" class="image-skeleton" alt="Spa and wellness" width="1600" height="900" loading="eager" decoding="async" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
 </picture>
       <div class="hero-copy">
         <h1 class="title">Spa & Wellness</h1>
@@ -127,7 +127,7 @@
           <picture>
   <source type="image/avif" srcset="/images/spa-wellness-hero.svg 320w, /images/spa-wellness-hero.svg 480w, /images/spa-wellness-hero.svg 640w, /images/spa-wellness-hero.svg 900w" sizes="(max-width: 900px) 100vw, 900px">
   <source type="image/webp" srcset="/images/spa-wellness-hero.svg 320w, /images/spa-wellness-hero.svg 480w, /images/spa-wellness-hero.svg 640w, /images/spa-wellness-hero.svg 900w" sizes="(max-width: 900px) 100vw, 900px">
-  <img src="/images/spa.svg" class="image-skeleton" alt="Massage therapy" width="900" height="600" loading="lazy" decoding="async">
+  <img src="/assets/images/spa.webp" class="image-skeleton" alt="Massage therapy" width="900" height="600" loading="lazy" decoding="async">
 </picture>
           <div class="service-card-body">
             <h3>Harmony Massage</h3>
@@ -255,6 +255,94 @@
             <p>Serene spa spaces with calming design, aromatherapy, and soft lighting.</p>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="page-shell" aria-labelledby="spa-booking-heading">
+      <div class="booking-intro">
+        <h2 id="spa-booking-heading">Book your treatment</h2>
+        <p>Select a treatment, preferred therapist, and time to enjoy a calm, restorative experience tailored to your stay.</p>
+      </div>
+
+      <div class="booking-grid">
+        <form id="spa-reservation-form" class="booking-form" novalidate>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="spa-treatment">Treatment</label>
+              <select id="spa-treatment" name="treatment" required>
+                <option value="Swedish Massage">Swedish Massage</option>
+                <option value="Deep Tissue Massage">Deep Tissue Massage</option>
+                <option value="Facial Treatment">Facial Treatment</option>
+                <option value="Steam Therapy">Steam Therapy</option>
+                <option value="Wellness Package">Wellness Package</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="spa-therapist">Therapist preference</label>
+              <select id="spa-therapist" name="therapist" required>
+                <option value="Amina Tesfaye">Amina Tesfaye</option>
+                <option value="Selam Kidane">Selam Kidane</option>
+                <option value="Biniam Mekonnen">Biniam Mekonnen</option>
+                <option value="No preference">No preference</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="spa-date">Date</label>
+              <input id="spa-date" name="date" type="date" required>
+            </div>
+            <div class="field-group">
+              <label for="spa-time">Time</label>
+              <select id="spa-time" name="time" required>
+                <option value="">Choose a time</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:30 AM">10:30 AM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="3:30 PM">3:30 PM</option>
+                <option value="6:00 PM">6:00 PM</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="spa-duration">Duration</label>
+              <select id="spa-duration" name="duration" required>
+                <option value="45 minutes">45 minutes</option>
+                <option value="60 minutes" selected>60 minutes</option>
+                <option value="90 minutes">90 minutes</option>
+                <option value="120 minutes">120 minutes</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="spa-name">Guest name</label>
+              <input id="spa-name" name="name" type="text" required>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button type="submit" class="buttoncall">Reserve spa treatment</button>
+          </div>
+
+          <p id="spa-reservation-error" class="form-error" role="alert" aria-live="assertive"></p>
+        </form>
+
+        <aside class="booking-info" aria-labelledby="spa-summary-heading">
+          <h3 id="spa-summary-heading">Treatment summary</h3>
+          <p>Your spa reservation details will appear here before confirmation.</p>
+          <div class="summary-stack">
+            <div class="summary-row"><span>Treatment</span><strong id="spa-summary-treatment">Swedish Massage</strong></div>
+            <div class="summary-row"><span>Therapist</span><strong id="spa-summary-therapist">Amina Tesfaye</strong></div>
+            <div class="summary-row"><span>Duration</span><strong id="spa-summary-duration">60 minutes</strong></div>
+            <div class="summary-row"><span>Estimated cost</span><strong id="spa-summary-price">$75</strong></div>
+          </div>
+          <div id="spa-confirmation" class="confirmation-card" hidden role="status" aria-live="polite">
+            <h3>Reservation confirmed</h3>
+            <p>Your treatment has been reserved. We look forward to welcoming you.</p>
+          </div>
+        </aside>
       </div>
     </section>
 

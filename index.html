@@ -90,8 +90,11 @@
 
     <div id="app">
       <main id="main-content">
-        <section class="hero hero--tall" aria-labelledby="home-title">
-          <img class="hero__image" src="/images/index-hero.svg" alt="Hatsey Kaleb Hotel exterior at golden hour" width="1600" height="900" />
+        <section class="hero hero--tall hero--video" aria-labelledby="home-title">
+          <video class="hero__image hero__video" autoplay muted loop playsinline preload="metadata" poster="/assets/images/hero-poster.jpg" aria-hidden="true">
+            <source src="/assets/images/hero-video.mp4" type="video/mp4">
+          </video>
+          <img class="hero__fallback" src="/assets/images/hero-poster.jpg" alt="Hatsey Kaleb Hotel exterior at golden hour" width="1600" height="900" aria-hidden="true">
           <div class="hero__overlay"></div>
           <div class="hero-copy">
             <p class="eyebrow">Warm hospitality in Tigray</p>
@@ -112,17 +115,86 @@
           </div>
           <div class="home-feature-grid">
             <a class="home-feature" href="rooms.html">
-              <img src="/images/bedroom-deluxe.svg" alt="Deluxe room interior" width="900" height="600" loading="lazy" />
+              <img src="/assets/images/deluxe-room.jpg" alt="Deluxe room interior" width="900" height="600" loading="lazy" />
               <span><strong>Rooms & suites</strong><small>Quiet spaces for short stays and long weekends</small></span>
             </a>
             <a class="home-feature" href="restaurant.html">
-              <img src="/images/restaurant.svg" alt="Hotel dining experience" width="900" height="600" loading="lazy" />
+              <img src="/assets/images/restaurant.jpg" alt="Hotel dining experience" width="900" height="600" loading="lazy" />
               <span><strong>Dining</strong><small>Local warmth, familiar comforts, and good company</small></span>
             </a>
             <a class="home-feature" href="events.html">
-              <img src="/images/events.svg" alt="Hotel event space" width="900" height="600" loading="lazy" />
+              <img src="/assets/images/conference.avif" alt="Hotel event space" width="900" height="600" loading="lazy" />
               <span><strong>Gatherings</strong><small>Thoughtful spaces for meetings and celebrations</small></span>
             </a>
+          </div>
+        </section>
+
+        <section class="page-shell booking-widget" aria-labelledby="home-booking-title">
+          <div class="booking-panel">
+            <p class="eyebrow">Plan your stay</p>
+            <h2 id="home-booking-title">Check availability</h2>
+            <p>Choose your dates and room type to preview live availability before continuing to the full booking flow.</p>
+
+            <form id="homepage-booking-form" class="booking-form home-booking-form" novalidate>
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="home-checkin">Check-in</label>
+                  <input id="home-checkin" name="checkIn" type="date" required>
+                </div>
+                <div class="field-group">
+                  <label for="home-checkout">Check-out</label>
+                  <input id="home-checkout" name="checkOut" type="date" required>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="home-adults">Adults</label>
+                  <select id="home-adults" name="adults" required>
+                    <option value="1">1 adult</option>
+                    <option value="2" selected>2 adults</option>
+                    <option value="3">3 adults</option>
+                    <option value="4">4 adults</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="home-children">Children</label>
+                  <select id="home-children" name="children" required>
+                    <option value="0" selected>0 children</option>
+                    <option value="1">1 child</option>
+                    <option value="2">2 children</option>
+                    <option value="3">3 children</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="home-room-type">Room type</label>
+                  <select id="home-room-type" name="roomType" required>
+                    <option value="standard-room">Standard Room</option>
+                    <option value="deluxe-room">Deluxe Room</option>
+                    <option value="executive-suite">Executive Suite</option>
+                    <option value="family-room">Family Room</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="home-room-count">Rooms</label>
+                  <select id="home-room-count" name="roomCount" required>
+                    <option value="1" selected>1 room</option>
+                    <option value="2">2 rooms</option>
+                    <option value="3">3 rooms</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="booking-actions">
+                <button type="submit" class="buttoncall">Search availability</button>
+              </div>
+
+              <div id="home-booking-error" class="form-error" role="alert" aria-live="assertive"></div>
+              <div id="home-booking-results" class="availability-grid" aria-live="polite"></div>
+            </form>
           </div>
         </section>
 

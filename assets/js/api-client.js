@@ -183,20 +183,25 @@ class HotelAPIClient {
   // PAYMENTS
   // ============================================================
 
-  async createPaymentIntent(bookingId, guestEmail = '') {
-    return this.request('POST', '/api/payments/create-intent', {
+  async initializeChapaPayment(bookingId, guestEmail = '') {
+    return this.request('POST', '/api/payments/chapa/initialize', {
       bookingId,
       guestEmail
     });
   }
 
-  async confirmPayment(bookingId, paymentIntentId, paymentMethodId, guestEmail = '') {
-    return this.request('POST', '/api/payments/confirm', {
-      bookingId,
-      paymentIntentId,
-      paymentMethodId,
-      guestEmail
+  async verifyChapaPayment(txRef) {
+    return this.request('POST', '/api/payments/chapa/verify', {
+      tx_ref: txRef
     });
+  }
+
+  async createPaymentIntent(bookingId, guestEmail = '') {
+    return this.initializeChapaPayment(bookingId, guestEmail);
+  }
+
+  async confirmPayment(bookingId, paymentIntentId, paymentMethodId, guestEmail = '') {
+    return this.verifyChapaPayment(paymentIntentId || bookingId);
   }
 
   // ============================================================

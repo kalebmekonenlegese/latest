@@ -14,6 +14,7 @@ jest.mock('../utils/db', () => {
     booking: {
       create: jest.fn(),
       findFirst: jest.fn(),
+      findUnique: jest.fn(),
       update: jest.fn(),
       findMany: jest.fn()
     },
@@ -62,7 +63,6 @@ jest.mock('../config', () => {
 // Helper to mock auth middleware for authenticated requests
 jest.mock('../middlewares/auth', () => {
   return (req, res, next) => {
-    // If test sets header 'x-test-user' return that user; otherwise behave as unauthenticated
     const header = req.headers['x-test-user'];
     if (header) {
       try {
@@ -72,6 +72,24 @@ jest.mock('../middlewares/auth', () => {
         // fallthrough
       }
     }
+
+    const cookieHeader = req.headers.cookie || '';
+    const cookieMatch = cookieHeader
+      .split(';')
+      .map((cookie) => cookie.trim())
+      .find((cookie) => cookie.startsWith('auth_token='));
+
+    if (cookieMatch) {
+      try {
+        const jwt = require('jsonwebtoken');
+        const token = decodeURIComponent(cookieMatch.substring('auth_token='.length));
+        req.user = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-key');
+        return next();
+      } catch (e) {
+        return res.status(403).json({ error: 'Invalid or expired token', requestId: req.id });
+      }
+    }
+
     return res.status(401).json({ error: 'No authentication token provided', requestId: req.id });
   };
 });
@@ -314,14 +332,39 @@ describe('Express route integration tests', () => {
   describe('Payments endpoints', () => {
     test('POST /api/payments/create-intent valid -> success', async () => {
       const user = { id: 'user-1' };
-      const booking = { id: 'bpay1', totalPrice: 150.0, userId: 'user-1' };
+      const booking = { id: 'bpay1', totalPrice: 150.0, userId: 'user-1', email: 'guest@example.com', firstName: 'Guest', lastName: 'User', phone: '+251900000000' };
       prisma.booking.findFirst.mockResolvedValue(booking);
-      prisma.payment.create.mockResolvedValue({ id: 'pay1', clientSecret: 'secret', stripePaymentIntentId: 'pi_123', amount: 150, currency: 'usd' });
-      stripeClient.paymentIntents.create.mockResolvedValue({ id: 'pi_123', client_secret: 'secret', status: 'requires_payment_method' });
+      prisma.payment.create.mockResolvedValue({ id: 'pay1', clientSecret: 'tx_ref_123', chapaTxRef: 'tx_ref_123', amount: 150, currency: 'ETB', bookingId: 'bpay1' });
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ status: 'success', data: { checkout_url: 'https://checkout.chapa.co/pay/test-123' } })
+      });
 
       const res = await request(app).post('/api/payments/create-intent').set('x-test-user', JSON.stringify(user)).send({ bookingId: 'bpay1' });
       expect(res.status).toBe(200);
-      expect(res.body.clientSecret).toBeDefined();
+      expect(res.body.checkoutUrl).toContain('checkout.chapa.co');
+      expect(prisma.payment.create).toHaveBeenCalled();
+    });
+
+    test('POST /api/payments/create-intent with signed-in cookie is authenticated', async () => {
+      const jwt = require('jsonwebtoken');
+      const user = { id: 'user-1', email: 'u@example.com' };
+      const token = jwt.sign(user, process.env.JWT_SECRET || 'dev-secret-key', { expiresIn: '1h' });
+      const booking = { id: 'bpay1', totalPrice: 150.0, userId: 'user-1', email: 'guest@example.com', firstName: 'Guest', lastName: 'User', phone: '+251900000000' };
+      prisma.booking.findFirst.mockResolvedValue(booking);
+      prisma.payment.create.mockResolvedValue({ id: 'pay1', clientSecret: 'tx_ref_123', chapaTxRef: 'tx_ref_123', amount: 150, currency: 'ETB', bookingId: 'bpay1' });
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ status: 'success', data: { checkout_url: 'https://checkout.chapa.co/pay/test-123' } })
+      });
+
+      const res = await request(app)
+        .post('/api/payments/create-intent')
+        .set('Cookie', `auth_token=${token}`)
+        .send({ bookingId: 'bpay1' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
       expect(prisma.payment.create).toHaveBeenCalled();
     });
 
@@ -350,16 +393,19 @@ describe('Express route integration tests', () => {
     test('POST /api/payments/confirm successful confirmation', async () => {
       const user = { id: 'user-1' };
       const booking = { id: 'bpay1', totalPrice: 150.0, userId: 'user-1', status: 'PENDING' };
-      const payment = { id: 'pay1', bookingId: 'bpay1', stripePaymentIntentId: 'pi_123', status: 'requires_payment_method' };
+      const payment = { id: 'pay1', bookingId: 'bpay1', chapaTxRef: 'tx_ref_123', status: 'pending', amount: 150, currency: 'ETB' };
 
       prisma.booking.findFirst.mockResolvedValue(booking);
       prisma.payment.findFirst.mockResolvedValue(payment);
-      stripeClient.paymentIntents.retrieve.mockResolvedValue({ id: 'pi_123', amount: Math.round(150.0 * 100), currency: 'usd', metadata: { bookingId: 'bpay1', userId: 'user-1' }, status: 'requires_payment_method' });
-      stripeClient.paymentIntents.confirm.mockResolvedValue({ id: 'pi_123', status: 'succeeded' });
-      prisma.payment.update.mockResolvedValue({ id: 'pay1', status: 'succeeded' });
+      prisma.booking.findUnique.mockResolvedValue(booking);
+      prisma.payment.update.mockResolvedValue({ id: 'pay1', status: 'success' });
       prisma.booking.update.mockResolvedValue({ id: 'bpay1', status: 'CONFIRMED' });
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ status: 'success', data: { status: 'success', tx_ref: 'tx_ref_123', amount: '150.00', currency: 'ETB' } })
+      });
 
-      const res = await request(app).post('/api/payments/confirm').set('x-test-user', JSON.stringify(user)).send({ bookingId: 'bpay1', paymentIntentId: 'pay1', paymentMethodId: 'pm_123' });
+      const res = await request(app).post('/api/payments/confirm').set('x-test-user', JSON.stringify(user)).send({ bookingId: 'bpay1', tx_ref: 'tx_ref_123' });
       expect(res.status).toBe(200);
       expect(res.body.booking).toBeDefined();
       expect(prisma.payment.update).toHaveBeenCalled();

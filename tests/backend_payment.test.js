@@ -6,17 +6,23 @@ jest.mock('../utils/db', () => ({
 
 jest.mock('../config', () => ({
   environment: 'development',
+  frontendUrl: 'http://localhost:3000',
   stripeClient: {
     paymentIntents: {
       create: jest.fn(),
       retrieve: jest.fn(),
       confirm: jest.fn()
     }
-  }
+  },
+  chapaSecretKey: 'chapa-test-secret',
+  chapaApiBaseUrl: 'https://api.chapa.co/v1',
+  chapaCallbackUrl: 'http://localhost:3000/api/payments/chapa/callback',
+  chapaReturnUrl: 'http://localhost:3000/booking/success'
 }));
 
 const prisma = require('../utils/db');
 const { createPaymentIntent, confirmPayment, handlePaymentWebhook } = require('../services/paymentService');
+const { initializeChapaPayment, verifyChapaPayment, handleChapaCallback } = require('../services/chapaService');
 
 describe('paymentService (unit)', () => {
   beforeEach(() => {
@@ -178,5 +184,91 @@ describe('paymentService (unit)', () => {
       data: { status: 'failed' }
     });
     expect(prisma.booking.update).not.toHaveBeenCalled();
+  });
+
+  test('initializeChapaPayment creates a Chapa checkout transaction', async () => {
+    prisma.booking.findFirst.mockResolvedValueOnce({
+      id: 'b1',
+      userId: 'u1',
+      email: 'guest@example.com',
+      totalPrice: 230,
+      firstName: 'Guest',
+      lastName: 'User',
+      phone: '+251900000000',
+      status: 'PENDING_PAYMENT',
+      nights: 2,
+      rooms: 1,
+      pricePerNight: 115
+    });
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        status: 'success',
+        data: { checkout_url: 'https://checkout.chapa.co/pay/test-123' }
+      })
+    });
+
+    prisma.payment.create.mockResolvedValueOnce({
+      id: 'p1',
+      bookingId: 'b1',
+      amount: 230,
+      currency: 'ETB',
+      status: 'pending',
+      chapaTxRef: 'tx_ref_123',
+      chapaCheckoutUrl: 'https://checkout.chapa.co/pay/test-123'
+    });
+
+    const result = await initializeChapaPayment({ bookingId: 'b1', userId: 'u1' });
+
+    expect(result.checkoutUrl).toBe('https://checkout.chapa.co/pay/test-123');
+    expect(global.fetch).toHaveBeenCalled();
+    expect(prisma.payment.create).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        bookingId: 'b1',
+        amount: 230,
+        currency: 'ETB'
+      })
+    }));
+  });
+
+  test('verifyChapaPayment marks a successful payment as confirmed', async () => {
+    prisma.payment.findFirst.mockResolvedValueOnce({
+      id: 'p1',
+      bookingId: 'b1',
+      chapaTxRef: 'tx_ref_123',
+      status: 'pending',
+      amount: 230,
+      currency: 'ETB'
+    });
+    prisma.booking.findUnique.mockResolvedValueOnce({
+      id: 'b1',
+      userId: 'u1',
+      email: 'guest@example.com',
+      firstName: 'Guest',
+      lastName: 'User',
+      phone: '+251900000000',
+      status: 'PENDING_PAYMENT',
+      totalPrice: 230
+    });
+    prisma.payment.update.mockResolvedValueOnce({ id: 'p1', status: 'success' });
+    prisma.booking.update.mockResolvedValueOnce({ id: 'b1', status: 'CONFIRMED' });
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        status: 'success',
+        data: { status: 'success', tx_ref: 'tx_ref_123', amount: '230.00', currency: 'ETB' }
+      })
+    });
+
+    const result = await verifyChapaPayment({ tx_ref: 'tx_ref_123' });
+
+    expect(result.status).toBe('success');
+    expect(result.bookingId).toBe('b1');
+    expect(prisma.booking.update).toHaveBeenCalledWith(expect.objectContaining({
+      where: { id: 'b1' },
+      data: expect.objectContaining({ status: 'CONFIRMED' })
+    }));
   });
 });

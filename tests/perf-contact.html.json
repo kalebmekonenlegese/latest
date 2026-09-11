@@ -2,15 +2,15 @@
   "paint": [
     {
       "name": "first-paint",
-      "start": 228
+      "start": 200
     },
     {
       "name": "first-contentful-paint",
-      "start": 228
+      "start": 200
     }
   ],
   "navigation": {
-    "domContentLoaded": 234.40000009536743,
-    "load": 235.10000002384186
+    "domContentLoaded": 208.39999997615814,
+    "load": 214.29999995231628
   }
 }

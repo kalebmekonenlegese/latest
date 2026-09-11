@@ -87,10 +87,17 @@ function copyStaticAssetsPlugin() {
       const distDir = path.join(rootDir, 'dist');
       const sourceDir = path.join(rootDir, 'images');
       const targetDir = path.join(distDir, 'images');
+      const sourceMediaDir = path.join(rootDir, 'assets', 'images');
+      const targetMediaDir = path.join(distDir, 'assets', 'images');
 
       if (fs.existsSync(sourceDir)) {
         fs.mkdirSync(targetDir, { recursive: true });
         fs.cpSync(sourceDir, targetDir, { recursive: true, force: true });
+      }
+
+      if (fs.existsSync(sourceMediaDir)) {
+        fs.mkdirSync(targetMediaDir, { recursive: true });
+        fs.cpSync(sourceMediaDir, targetMediaDir, { recursive: true, force: true });
       }
     }
   };

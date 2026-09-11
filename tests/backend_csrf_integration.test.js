@@ -19,14 +19,14 @@ describe('CSRF token endpoint in production-like environment', () => {
     process.env = { ...oldEnv };
   });
 
-  test('GET /api/csrf-token returns a token and sets a cookie', async () => {
+  test('GET /api/csrf-token returns a token and sets the validation cookie', async () => {
     const res = await request(app).get('/api/csrf-token');
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(res.body.csrfToken).toBeDefined();
     expect(typeof res.body.csrfToken).toBe('string');
-    expect(res.headers['set-cookie']).toEqual(expect.arrayContaining([expect.stringContaining('csrf-secure=')]));
+    expect(res.headers['set-cookie']).toEqual(expect.arrayContaining([expect.stringContaining('csrfToken=')]));
     expect(res.headers['set-cookie'].join(';')).toMatch(/SameSite=None/i);
     expect(res.headers['set-cookie'].join(';')).toMatch(/Secure/i);
   });

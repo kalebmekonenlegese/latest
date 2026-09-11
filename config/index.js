@@ -1,14 +1,21 @@
 const dotenv = require('dotenv');
-const stripe = require('stripe');
 
 dotenv.config();
 
 const environment = process.env.NODE_ENV || 'development';
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-const stripeClient = process.env.STRIPE_SECRET_KEY ? stripe(process.env.STRIPE_SECRET_KEY) : null;
+const stripeClient = null;
+const chapaSecretKey = process.env.CHAPA_SECRET_KEY || 'chapa-test-secret';
+const chapaApiBaseUrl = process.env.CHAPA_API_BASE_URL || 'https://api.chapa.co/v1';
+const chapaCallbackUrl = process.env.CHAPA_CALLBACK_URL || `${frontendUrl}/api/payments/chapa/callback`;
+const chapaReturnUrl = process.env.CHAPA_RETURN_URL || `${frontendUrl}/booking/success`;
 
 module.exports = {
   environment,
   frontendUrl,
-  stripeClient
+  stripeClient,
+  chapaSecretKey,
+  chapaApiBaseUrl,
+  chapaCallbackUrl,
+  chapaReturnUrl
 };

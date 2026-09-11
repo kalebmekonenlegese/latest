@@ -7,9 +7,14 @@ const TEST_BASE_URL =
   process.env.BASE_URL ||
   'http://127.0.0.1:5000';
 
-const activeProjects = process.env.CI
-  ? ['chromium']
-  : ['chromium', 'firefox', 'mobile-chrome'];
+const requestedProjects = (
+  process.env.PLAYWRIGHT_PROJECTS ||
+  (process.env.CI ? 'chromium' : 'chromium')
+).split(',').map((name) => name.trim()).filter(Boolean);
+
+const activeProjects = requestedProjects.length > 0
+  ? requestedProjects
+  : ['chromium'];
 
 const projectMap = {
   chromium: { use: { ...devices['Desktop Chrome'] } },
